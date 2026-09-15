@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1 flex items-center justify-center py-16 px-4">
+    <div class="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md border border-cream-dark">
+
+        <div class="text-center mb-8">
+            <span class="text-5xl">🏺</span>
+            <h1 class="font-serif text-3xl font-bold text-charcoal mt-3 mb-1">Bentornato</h1>
+            <p class="text-charcoal/60 text-sm">Accedi al tuo account Artigiani Bottega</p>
+        </div>
+
+        <!-- Messaggio di errore -->
+        <div th:if="${error}" class="bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 mb-6 text-sm">
+            <span th:text="${error}"></span>
+        </div>
+
+        <form th:action="@{/login}" method="post" class="space-y-5">
+
+            <div>
+                <label for="email" class="block text-sm font-medium text-charcoal mb-1">Email</label>
+                <input type="email" id="email" name="email" required
+                       class="w-full border border-cream-dark rounded-lg px-4 py-3 text-charcoal bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay transition-colors"
+                       placeholder="la-tua@email.it">
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-charcoal mb-1">Password</label>
+                <input type="password" id="password" name="password" required
+                       class="w-full border border-cream-dark rounded-lg px-4 py-3 text-charcoal bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay transition-colors"
+                       placeholder="La tua password">
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-clay hover:bg-clay-dark text-white py-3 rounded-xl font-semibold text-base transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                Accedi
+            </button>
+        </form>
+
+        <p class="text-center text-sm text-charcoal/60 mt-4">
+            <a th:href="@{/forgot-password}" class="text-clay font-medium hover:underline">
+                Password dimenticata?
+            </a>
+        </p>
+
+        <p class="text-center text-sm text-charcoal/60 mt-3">
+            Non hai un account?
+            <a th:href="@{/signup}" class="text-clay font-medium hover:underline">Registrati gratis</a>
+        </p>
+    </div>
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

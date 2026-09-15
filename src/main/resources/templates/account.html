@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <h1 class="font-serif text-4xl font-bold text-charcoal mb-8">Il mio Account 👤</h1>
+
+    <!-- Messaggi flash -->
+    <div th:if="${success}" class="bg-green-50 border border-green-200 text-green-700 rounded-xl px-5 py-4 mb-6 text-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        <span th:text="${success}"></span>
+    </div>
+    <div th:if="${error}" class="bg-red-50 border border-red-200 text-red-700 rounded-xl px-5 py-4 mb-6 text-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        <span th:text="${error}"></span>
+    </div>
+
+    <div class="space-y-6">
+
+        <!-- =====================================================
+             SEZIONE 1 – INFORMAZIONI ACCOUNT
+             ===================================================== -->
+        <div class="bg-white rounded-2xl border border-cream-dark p-6">
+            <h2 class="font-semibold text-charcoal text-lg mb-5">Informazioni Account</h2>
+
+            <!-- Modifica Username -->
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-charcoal/60 mb-1">Username</label>
+                <form th:action="@{/account/update-username}" method="post" class="flex gap-3">
+                    <input type="text" name="newUsername"
+                           th:value="${user.username}" required
+                           class="flex-1 border border-cream-dark rounded-lg px-4 py-3 text-charcoal bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+                    <button type="submit"
+                            class="bg-charcoal hover:bg-clay text-white px-5 py-3 rounded-lg text-sm font-medium transition-colors duration-200 whitespace-nowrap">
+                        Aggiorna
+                    </button>
+                </form>
+            </div>
+
+            <!-- Modifica Email -->
+            <div>
+                <label class="block text-sm font-medium text-charcoal/60 mb-1">Email</label>
+                <form th:action="@{/account/update-email}" method="post" class="flex gap-3">
+                    <input type="email" name="newEmail"
+                           th:value="${user.email}" required
+                           class="flex-1 border border-cream-dark rounded-lg px-4 py-3 text-charcoal bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+                    <button type="submit"
+                            class="bg-charcoal hover:bg-clay text-white px-5 py-3 rounded-lg text-sm font-medium transition-colors duration-200 whitespace-nowrap">
+                        Aggiorna
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             SEZIONE 2 – CAMBIO PASSWORD
+             ===================================================== -->
+        <div class="bg-white rounded-2xl border border-cream-dark p-6">
+            <h2 class="font-semibold text-charcoal text-lg mb-5">Cambia Password</h2>
+            <form th:action="@{/account/change-password}" method="post" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-charcoal mb-1">Password attuale</label>
+                    <input type="password" name="oldPassword" required
+                           class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-charcoal mb-1">Nuova password</label>
+                    <input type="password" name="newPassword" required minlength="8"
+                           class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-charcoal mb-1">Conferma nuova password</label>
+                    <input type="password" name="confirmPassword" required
+                           class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+                </div>
+                <button type="submit"
+                        class="bg-clay hover:bg-clay-dark text-white px-6 py-3 rounded-lg text-sm font-medium transition-colors duration-200">
+                    Cambia Password
+                </button>
+            </form>
+        </div>
+
+        <!-- =====================================================
+             SEZIONE 3 – INDIRIZZI DI SPEDIZIONE
+             ===================================================== -->
+        <div class="bg-white rounded-2xl border border-cream-dark p-6">
+            <div class="flex items-center justify-between mb-5">
+                <h2 class="font-semibold text-charcoal text-lg">Indirizzi di Spedizione</h2>
+                <button onclick="openAddressModal('add')"
+                        class="flex items-center gap-2 bg-clay hover:bg-clay-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Aggiungi indirizzo
+                </button>
+            </div>
+
+            <!-- Lista indirizzi salvati -->
+            <div th:if="${addresses.empty}" class="text-charcoal/50 text-sm text-center py-6 border border-dashed border-cream-dark rounded-xl">
+                Nessun indirizzo salvato. Aggiungine uno per velocizzare il checkout.
+            </div>
+
+            <div th:if="${!addresses.empty}" class="space-y-4">
+                <div th:each="addr : ${addresses}"
+                     class="relative rounded-xl border p-4 transition-all"
+                     th:classappend="${addr.default} ? 'border-clay bg-clay/5' : 'border-cream-dark'">
+
+                    <!-- Badge predefinito -->
+                    <span th:if="${addr.default}"
+                          class="absolute top-3 right-3 bg-clay text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+                        Predefinito
+                    </span>
+
+                    <!-- Dati indirizzo -->
+                    <p class="font-semibold text-charcoal text-sm" th:text="${addr.fullName}"></p>
+                    <p class="text-charcoal/70 text-sm" th:text="${addr.street}"></p>
+                    <p th:if="${addr.streetExtra != null and !addr.streetExtra.isBlank()}"
+                       class="text-charcoal/70 text-sm" th:text="${addr.streetExtra}"></p>
+                    <p class="text-charcoal/70 text-sm"
+                       th:text="${addr.postalCode + ' ' + addr.city + ' (' + addr.province + ')'}"></p>
+                    <p class="text-charcoal/70 text-sm" th:text="${addr.country}"></p>
+
+                    <!-- Azioni -->
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <!-- Imposta predefinito -->
+                        <form th:if="${!addr.default}"
+                              th:action="@{/account/addresses/{id}/set-default(id=${addr.id})}" method="post">
+                            <button type="submit"
+                                    class="text-xs font-medium text-charcoal/60 hover:text-clay border border-cream-dark hover:border-clay px-3 py-1.5 rounded-lg transition-colors">
+                                Imposta come predefinito
+                            </button>
+                        </form>
+                        <!-- Modifica -->
+                        <button th:onclick="'openAddressModal(\'edit\',' + ${addr.id} + ',\'' + ${#strings.escapeJava(addr.fullName)} + '\',\'' + ${#strings.escapeJava(addr.country)} + '\',\'' + ${#strings.escapeJava(addr.street)} + '\',\'' + ${addr.streetExtra != null ? #strings.escapeJava(addr.streetExtra) : ''} + '\',\'' + ${addr.postalCode} + '\',\'' + ${#strings.escapeJava(addr.city)} + '\',\'' + ${#strings.escapeJava(addr.province)} + '\',' + ${addr.default} + ')'"
+                                class="text-xs font-medium text-charcoal/60 hover:text-clay border border-cream-dark hover:border-clay px-3 py-1.5 rounded-lg transition-colors">
+                            Modifica
+                        </button>
+                        <!-- Elimina -->
+                        <form th:action="@{/account/addresses/{id}/delete(id=${addr.id})}" method="post"
+                              onsubmit="return confirm('Eliminare questo indirizzo?')">
+                            <button type="submit"
+                                    class="text-xs font-medium text-red-500 hover:text-red-700 border border-red-200 hover:border-red-400 px-3 py-1.5 rounded-lg transition-colors">
+                                Elimina
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             SEZIONE 4 – PRIVACY
+             ===================================================== -->
+        <div class="bg-white rounded-2xl border border-cream-dark p-6">
+            <h2 class="font-semibold text-charcoal text-lg mb-3">Privacy e Cookie 🔒</h2>
+            <div class="text-sm text-charcoal/70 space-y-2 leading-relaxed">
+                <p>Il nostro sito utilizza esclusivamente <strong>cookie tecnici</strong> necessari al funzionamento del servizio.</p>
+                <p>Non utilizziamo cookie di profilazione, tracciamento o marketing di terze parti.</p>
+                <p>
+                    Per maggiori dettagli consulta la nostra
+                    <a th:href="@{/privacy}" class="text-clay hover:underline">Informativa sulla Privacy</a>
+                    e la <a th:href="@{/cookie-policy}" class="text-clay hover:underline">Cookie Policy</a>.
+                </p>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             SEZIONE 5 – ZONA PERICOLOSA (eliminazione account)
+             ===================================================== -->
+        <div class="bg-white rounded-2xl border border-red-200 p-6">
+            <h2 class="font-semibold text-red-600 text-lg mb-2">Zona Pericolosa</h2>
+            <p class="text-sm text-charcoal/70 mb-4">
+                Puoi eliminare definitivamente il tuo account esercitando il <strong>diritto all'oblio</strong> previsto dall'art.&nbsp;17 del GDPR.
+                Tutti i tuoi dati personali, indirizzi di spedizione e storico ordini verranno cancellati in modo irreversibile.
+            </p>
+            <button onclick="document.getElementById('deleteAccountModal').classList.remove('hidden')"
+                    class="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-colors duration-200">
+                Elimina il mio account
+            </button>
+        </div>
+
+    </div>
+</main>
+
+<!-- =============================================================
+     MODALE – INDIRIZZO (Aggiunta / Modifica)
+     ============================================================= -->
+<div id="addressModal"
+     class="hidden fixed inset-0 z-50 flex items-center justify-center bg-charcoal/60 backdrop-blur-sm px-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between px-6 py-5 border-b border-cream-dark">
+            <h3 id="addressModalTitle" class="font-serif text-xl font-bold text-charcoal">Inserisci un indirizzo</h3>
+            <button onclick="closeAddressModal()" class="text-charcoal/40 hover:text-charcoal transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <form id="addressForm" th:action="@{/account/addresses/add}" method="post" class="px-6 py-5 space-y-4">
+
+            <!-- Paese -->
+            <div>
+                <label for="addrCountry" class="block text-sm font-medium text-charcoal mb-1">Paese</label>
+                <select id="addrCountry" name="country"
+                        class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+                    <option value="Italia">🇮🇹 Italia</option>
+                    <option value="San Marino">🇸🇲 San Marino</option>
+                    <option value="Città del Vaticano">🇻🇦 Città del Vaticano</option>
+                    <option value="Francia">🇫🇷 Francia</option>
+                    <option value="Germania">🇩🇪 Germania</option>
+                    <option value="Spagna">🇪🇸 Spagna</option>
+                    <option value="Svizzera">🇨🇭 Svizzera</option>
+                </select>
+            </div>
+
+            <!-- Nome e cognome -->
+            <div>
+                <label for="addrFullName" class="block text-sm font-medium text-charcoal mb-1">Nome e cognome</label>
+                <input type="text" id="addrFullName" name="fullName" required
+                       th:placeholder="${user.username}"
+                       class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+            </div>
+
+            <!-- Via -->
+            <div>
+                <label for="addrStreet" class="block text-sm font-medium text-charcoal mb-1">Via</label>
+                <input type="text" id="addrStreet" name="street" required
+                       placeholder="Es. Via Roma 12"
+                       class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+            </div>
+
+            <!-- App / Interno / Altro -->
+            <div>
+                <label for="addrStreetExtra" class="block text-sm font-medium text-charcoal mb-1">
+                    App/Interno/Altro <span class="text-charcoal/40 font-normal">(facoltativo)</span>
+                </label>
+                <input type="text" id="addrStreetExtra" name="streetExtra"
+                       placeholder="Es. Scala A, Interno 5"
+                       class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+            </div>
+
+            <!-- CAP + Città (riga) -->
+            <div class="grid grid-cols-5 gap-3">
+                <div class="col-span-2">
+                    <label for="addrPostalCode" class="block text-sm font-medium text-charcoal mb-1">Codice postale</label>
+                    <input type="text" id="addrPostalCode" name="postalCode" required
+                           maxlength="10" placeholder="00100"
+                           class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+                </div>
+                <div class="col-span-3">
+                    <label for="addrCity" class="block text-sm font-medium text-charcoal mb-1">Città</label>
+                    <input type="text" id="addrCity" name="city" required
+                           placeholder="Es. Roma"
+                           class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+                </div>
+            </div>
+
+            <!-- Provincia -->
+            <div>
+                <label for="addrProvince" class="block text-sm font-medium text-charcoal mb-1">Provincia</label>
+                <select id="addrProvince" name="province" required
+                        class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 text-sm">
+                    <option value="" disabled selected>Seleziona la provincia</option>
+                    <option>AG</option><option>AL</option><option>AN</option><option>AO</option>
+                    <option>AR</option><option>AP</option><option>AT</option><option>AV</option>
+                    <option>BA</option><option>BT</option><option>BL</option><option>BN</option>
+                    <option>BG</option><option>BI</option><option>BO</option><option>BZ</option>
+                    <option>BS</option><option>BR</option><option>CA</option><option>CL</option>
+                    <option>CB</option><option>CE</option><option>CT</option><option>CZ</option>
+                    <option>CH</option><option>CO</option><option>CS</option><option>CR</option>
+                    <option>KR</option><option>CN</option><option>EN</option><option>FM</option>
+                    <option>FE</option><option>FI</option><option>FG</option><option>FC</option>
+                    <option>FR</option><option>GE</option><option>GO</option><option>GR</option>
+                    <option>IM</option><option>IS</option><option>SP</option><option>AQ</option>
+                    <option>LT</option><option>LE</option><option>LC</option><option>LI</option>
+                    <option>LO</option><option>LU</option><option>MC</option><option>MN</option>
+                    <option>MS</option><option>MT</option><option>ME</option><option>MI</option>
+                    <option>MO</option><option>MB</option><option>NA</option><option>NO</option>
+                    <option>NU</option><option>OR</option><option>PD</option><option>PA</option>
+                    <option>PR</option><option>PV</option><option>PG</option><option>PU</option>
+                    <option>PE</option><option>PC</option><option>PI</option><option>PT</option>
+                    <option>PN</option><option>PZ</option><option>PO</option><option>RG</option>
+                    <option>RA</option><option>RC</option><option>RE</option><option>RI</option>
+                    <option>RN</option><option>RM</option><option>RO</option><option>SA</option>
+                    <option>SS</option><option>SV</option><option>SI</option><option>SR</option>
+                    <option>SO</option><option>SU</option><option>TA</option><option>TE</option>
+                    <option>TR</option><option>TO</option><option>TP</option><option>TN</option>
+                    <option>TV</option><option>TS</option><option>UD</option><option>VA</option>
+                    <option>VE</option><option>VB</option><option>VC</option><option>VR</option>
+                    <option>VV</option><option>VI</option><option>VT</option>
+                </select>
+            </div>
+
+            <!-- Imposta come predefinito -->
+            <div class="flex items-center gap-3">
+                <input type="checkbox" id="addrDefault" name="setAsDefault" value="true"
+                       class="w-4 h-4 accent-clay rounded">
+                <label for="addrDefault" class="text-sm text-charcoal">Imposta come predefinito</label>
+            </div>
+
+            <!-- Bottoni -->
+            <div class="flex justify-between pt-2">
+                <button type="button" onclick="closeAddressModal()"
+                        class="text-sm font-medium text-charcoal/60 hover:text-charcoal transition-colors px-4 py-2">
+                    Annulla
+                </button>
+                <button type="submit"
+                        class="bg-clay hover:bg-clay-dark text-white px-8 py-3 rounded-xl text-sm font-semibold transition-colors duration-200">
+                    Salva
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- =============================================================
+     MODALE – CONFERMA ELIMINAZIONE ACCOUNT
+     ============================================================= -->
+<div id="deleteAccountModal"
+     class="hidden fixed inset-0 z-50 flex items-center justify-center bg-charcoal/60 backdrop-blur-sm px-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                </svg>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-charcoal">Eliminare l'account?</h3>
+        </div>
+        <p class="text-sm text-charcoal/70 mb-6 leading-relaxed">
+            Questa azione è <strong>irreversibile</strong>. Tutti i tuoi dati personali, indirizzi e ordini verranno cancellati definitivamente.
+            Inserisci la tua password per confermare.
+        </p>
+        <form th:action="@{/account/delete-account}" method="post" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Password di conferma</label>
+                <input type="password" name="confirmPassword" required
+                       placeholder="La tua password attuale"
+                       class="w-full border border-red-200 rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-red-300 text-sm">
+            </div>
+            <div class="flex justify-between pt-1">
+                <button type="button"
+                        onclick="document.getElementById('deleteAccountModal').classList.add('hidden')"
+                        class="text-sm font-medium text-charcoal/60 hover:text-charcoal transition-colors px-4 py-2">
+                    Annulla
+                </button>
+                <button type="submit"
+                        class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl text-sm font-semibold transition-colors duration-200">
+                    Sì, elimina il mio account
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+
+<script>
+    // -------------------------------------------------------
+    // Gestione modale indirizzo
+    // -------------------------------------------------------
+    const BASE_ADD_URL    = /*[[@{/account/addresses/add}]]*/ '/account/addresses/add';
+    const BASE_UPDATE_URL = /*[[@{/account/addresses/}]]*/ '/account/addresses/';
+
+    function openAddressModal(mode, id, fullName, country, street, streetExtra, postalCode, city, province, isDefault) {
+        const modal = document.getElementById('addressModal');
+        const form  = document.getElementById('addressForm');
+        const title = document.getElementById('addressModalTitle');
+
+        if (mode === 'add') {
+            title.textContent = 'Inserisci un indirizzo';
+            form.action = BASE_ADD_URL;
+            // Reset campi
+            form.reset();
+            document.getElementById('addrProvince').value = '';
+        } else {
+            title.textContent = 'Modifica indirizzo';
+            form.action = BASE_UPDATE_URL + id + '/update';
+            // Pre-compila i campi
+            document.getElementById('addrFullName').value    = fullName    || '';
+            document.getElementById('addrCountry').value     = country     || 'Italia';
+            document.getElementById('addrStreet').value      = street      || '';
+            document.getElementById('addrStreetExtra').value = streetExtra || '';
+            document.getElementById('addrPostalCode').value  = postalCode  || '';
+            document.getElementById('addrCity').value        = city        || '';
+            document.getElementById('addrProvince').value    = province    || '';
+            document.getElementById('addrDefault').checked   = isDefault   === true || isDefault === 'true';
+        }
+
+        modal.classList.remove('hidden');
+    }
+
+    function closeAddressModal() {
+        document.getElementById('addressModal').classList.add('hidden');
+    }
+
+    // Chiudi cliccando fuori dalla modale
+    document.getElementById('addressModal').addEventListener('click', function(e) {
+        if (e.target === this) closeAddressModal();
+    });
+    document.getElementById('deleteAccountModal').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.add('hidden');
+    });
+</script>
+
+</body>
+</html>

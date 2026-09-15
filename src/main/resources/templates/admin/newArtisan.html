@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <div class="flex items-center gap-3 mb-8">
+        <a th:href="@{/admin}" class="text-clay hover:underline text-sm">← Torna al pannello</a>
+    </div>
+
+    <h1 class="font-serif text-4xl font-bold text-charcoal mb-2">Inserisci Nuovo Artigiano</h1>
+    <p class="text-charcoal/60 mb-8">Aggiungi un maestro artigiano al database</p>
+
+    <!-- Messaggio di errore -->
+    <div th:if="${error}" class="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+        <span th:text="${error}"></span>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-cream-dark p-8">
+        <form th:action="@{/admin/artisan/save}" method="post" enctype="multipart/form-data" class="space-y-5">
+
+            <div>
+                <label for="name" class="block text-sm font-medium text-charcoal mb-1">Nome Artigiano *</label>
+                <input type="text" id="name" name="name" required
+                       class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm"
+                       placeholder="es. Giovanni Rossi">
+            </div>
+
+            <!-- Regione (dropdown 20 regioni) -->
+            <div>
+                <label for="region" class="block text-sm font-medium text-charcoal mb-1">Regione *</label>
+                <select id="region" name="region" required
+                        class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm">
+                    <option value="" disabled selected>Seleziona una regione…</option>
+                    <option th:each="r : ${regioni}" th:value="${r}" th:text="${r}"></option>
+                </select>
+            </div>
+
+            <!-- Città -->
+            <div>
+                <label for="location" class="block text-sm font-medium text-charcoal mb-1">Città *</label>
+                <input type="text" id="location" name="location" required
+                       class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm"
+                       placeholder="es. Firenze">
+            </div>
+
+            <div>
+                <label for="biography" class="block text-sm font-medium text-charcoal mb-1">Biografia</label>
+                <textarea id="biography" name="biography" rows="5"
+                          class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm resize-none"
+                          placeholder="Racconta la storia e la specialità di questo artigiano..."></textarea>
+            </div>
+
+            <div>
+                <label for="photoFile" class="block text-sm font-medium text-charcoal mb-1">Foto Profilo</label>
+                <div class="flex items-center gap-4">
+                    <label for="photoFile"
+                           class="cursor-pointer flex items-center gap-2 border border-dashed border-cream-dark rounded-lg px-4 py-3 bg-cream hover:border-clay hover:bg-clay/5 transition-colors text-sm text-charcoal/60 hover:text-clay w-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <span id="photoLabel">Scegli un'immagine (jpg, png, webp)…</span>
+                    </label>
+                    <input type="file" id="photoFile" name="photoFile" accept="image/*" class="hidden"
+                           onchange="document.getElementById('photoLabel').textContent = this.files[0]?.name || 'Scegli un\'immagine…'">
+                </div>
+            </div>
+
+            <div class="flex gap-4 pt-2">
+                <button type="submit"
+                        class="bg-clay hover:bg-clay-dark text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                    Salva Artigiano
+                </button>
+                <a th:href="@{/admin}"
+                   class="border border-cream-dark text-charcoal/60 hover:text-charcoal px-8 py-3 rounded-xl font-medium transition-colors">
+                    Annulla
+                </a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

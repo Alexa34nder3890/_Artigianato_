@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <div class="flex items-center gap-3 mb-8">
+        <a th:href="@{/admin}" class="text-clay hover:underline text-sm">← Torna al pannello</a>
+    </div>
+
+    <h1 class="font-serif text-4xl font-bold text-charcoal mb-2">Inserisci Nuovo Prodotto</h1>
+    <p class="text-charcoal/60 mb-8">Compila il form per aggiungere un prodotto al catalogo</p>
+
+    <!-- Messaggio di errore -->
+    <div th:if="${error}" class="bg-red-50 border border-red-200 text-red-700 rounded-xl px-5 py-4 mb-6 text-sm">
+        <span th:text="${error}"></span>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-cream-dark p-8">
+        <form th:action="@{/admin/product/save}" method="post" enctype="multipart/form-data" class="space-y-6">
+
+            <!-- Nome e Categoria -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-charcoal mb-1">Nome Prodotto *</label>
+                    <input type="text" id="name" name="name" required
+                           class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm"
+                           placeholder="es. Vaso in terracotta">
+                </div>
+                <div>
+                    <label for="category" class="block text-sm font-medium text-charcoal mb-1">Categoria *</label>
+                    <select id="category" name="category" required
+                            class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm">
+                        <option value="">Seleziona categoria...</option>
+                        <option value="ceramica">🏺 Ceramica</option>
+                        <option value="legno">🪵 Legno</option>
+                        <option value="tessuto">🧵 Tessuto</option>
+                        <option value="vetro">🪟 Vetro</option>
+                        <option value="gioielli">💍 Gioielli</option>
+                        <option value="altro">Altro</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Descrizione -->
+            <div>
+                <label for="description" class="block text-sm font-medium text-charcoal mb-1">Descrizione</label>
+                <textarea id="description" name="description" rows="4"
+                          class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm resize-none"
+                          placeholder="Descrivi il prodotto, i materiali usati, la tecnica artigianale..."></textarea>
+            </div>
+
+            <!-- Prezzo e Artigiano -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                    <label for="price" class="block text-sm font-medium text-charcoal mb-1">Prezzo (€) *</label>
+                    <input type="number" id="price" name="price" required step="0.01" min="0"
+                           class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm"
+                           placeholder="es. 49.90">
+                </div>
+                <div>
+                    <!-- Dropdown Artigiano basato su ArtisanEntity dal DB -->
+                    <label for="artisanId" class="block text-sm font-medium text-charcoal mb-1">Artigiano *</label>
+                    <select id="artisanId" name="artisanId" required
+                            class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm">
+                        <option value="">Seleziona artigiano...</option>
+                        <option th:each="artisan : ${artisans}"
+                                th:value="${artisan.id}"
+                                th:text="${artisan.name}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Upload immagine anteprima -->
+            <div>
+                <label for="imageFile" class="block text-sm font-medium text-charcoal mb-1">
+                    Immagine Anteprima
+                    <span class="text-charcoal/40 font-normal">(jpg, png, webp)</span>
+                </label>
+                <input type="file" id="imageFile" name="imageFile" accept="image/*"
+                       class="w-full text-sm text-charcoal/70 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-clay/10 file:text-clay file:font-medium hover:file:bg-clay/20 cursor-pointer">
+                <p class="text-xs text-charcoal/40 mt-1">
+                    Il file verrà salvato nel file system. Solo l'URL sarà memorizzato nel database.
+                </p>
+            </div>
+
+            <!-- Upload modello 3D -->
+            <div>
+                <label for="model3dFile" class="block text-sm font-medium text-charcoal mb-1">
+                    Modello 3D
+                    <span class="text-charcoal/40 font-normal">(.glb consigliato · oppure .zip con .gltf + .bin + texture)</span>
+                </label>
+                <input type="file" id="model3dFile" name="model3dFile" accept=".glb,.gltf,.zip"
+                       class="w-full text-sm text-charcoal/70 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-clay/10 file:text-clay file:font-medium hover:file:bg-clay/20 cursor-pointer">
+                <div class="mt-2 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-xs text-amber-800 space-y-1">
+                    <p>✅ <strong>.glb</strong> — formato consigliato: un unico file auto-contenuto.</p>
+                    <p>📦 <strong>.zip</strong> — per GLTF multi-file: comprimi in un unico .zip il file <code>.gltf</code>, il <code>.bin</code> e tutte le texture insieme.</p>
+                    <p>⚠️ Un file <strong>.gltf standalone</strong> (senza .bin e texture) non verrà visualizzato correttamente.</p>
+                </div>
+            </div>
+
+            <!-- Pulsanti -->
+            <div class="flex gap-4 pt-2">
+                <button type="submit"
+                        class="bg-clay hover:bg-clay-dark text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                    Salva Prodotto
+                </button>
+                <a th:href="@{/admin}"
+                   class="border border-cream-dark text-charcoal/60 hover:text-charcoal px-8 py-3 rounded-xl font-medium transition-colors">
+                    Annulla
+                </a>
+            </div>
+
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

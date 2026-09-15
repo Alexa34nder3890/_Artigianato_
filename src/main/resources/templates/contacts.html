@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1">
+
+    <!-- Hero intestazione -->
+    <section class="bg-charcoal py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-clay uppercase tracking-widest text-sm font-medium mb-3">Siamo qui per te</p>
+            <h1 class="font-serif text-5xl font-bold text-cream mb-4">Contattaci</h1>
+            <p class="text-cream/60 text-lg max-w-2xl mx-auto">
+                Hai domande, segnalazioni o semplicemente vuoi salutarci?
+                Scrivici e ti risponderemo al più presto.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contenuto pagina -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+
+            <!-- Info contatti -->
+            <div class="lg:col-span-2 space-y-8">
+                <div>
+                    <h2 class="font-serif text-2xl font-bold text-charcoal mb-6">Come raggiungerci</h2>
+
+                    <div class="space-y-5">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-clay/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-clay" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-charcoal">Email</p>
+                                <p class="text-charcoal/60 text-sm">info@artigianiBottega.it</p>
+                            </div>
+                        </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nota -->
+                <div class="bg-clay/5 border border-clay/20 rounded-2xl p-5">
+                    <p class="text-sm text-charcoal/70 leading-relaxed">
+                        Per problemi relativi a un ordine o pagamento, includi il numero d'ordine nel messaggio per velocizzare l'assistenza.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Form contatti -->
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl border border-cream-dark p-8">
+                    <h2 class="font-serif text-2xl font-bold text-charcoal mb-6">Invia un messaggio</h2>
+
+                    <form id="contactForm" class="space-y-5" onsubmit="submitContactForm(event)">
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="contactName" class="block text-sm font-medium text-charcoal mb-1">Nome e Cognome *</label>
+                                <input type="text" id="contactName" name="contactName" required
+                                       class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm"
+                                       placeholder="Mario Rossi">
+                            </div>
+                            <div>
+                                <label for="contactEmail" class="block text-sm font-medium text-charcoal mb-1">Email *</label>
+                                <input type="email" id="contactEmail" name="contactEmail" required
+                                       class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm"
+                                       placeholder="mario@esempio.com">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="contactSubject" class="block text-sm font-medium text-charcoal mb-1">Oggetto *</label>
+                            <select id="contactSubject" name="contactSubject" required
+                                    class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm">
+                                <option value="" disabled selected>Seleziona un argomento…</option>
+                                <option value="ordine">Problema con un ordine</option>
+                                <option value="prodotto">Informazioni su un prodotto</option>
+                                <option value="pagamento">Problemi di pagamento</option>
+                                <option value="reso">Reso o rimborso</option>
+                                <option value="altro">Altro</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="contactMessage" class="block text-sm font-medium text-charcoal mb-1">Messaggio *</label>
+                            <textarea id="contactMessage" name="contactMessage" rows="6" required
+                                      class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm resize-none"
+                                      placeholder="Descrivi nel dettaglio la tua richiesta…"></textarea>
+                        </div>
+
+                        <div id="contactSuccess"
+                             class="hidden bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Messaggio inviato con successo! Ti risponderemo al più presto.
+                        </div>
+
+                        <button type="submit" id="contactSubmitBtn"
+                                class="w-full bg-clay hover:bg-clay-dark text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                            Invia Messaggio
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+
+<script>
+    function submitContactForm(event) {
+        event.preventDefault();
+
+        const btn = document.getElementById('contactSubmitBtn');
+        const successMsg = document.getElementById('contactSuccess');
+        const form = document.getElementById('contactForm');
+
+        // Simula invio con breve animazione sul pulsante
+        btn.disabled = true;
+        btn.textContent = 'Invio in corso…';
+
+        setTimeout(function () {
+            // Reset form e mostra messaggio di successo
+            form.reset();
+            successMsg.classList.remove('hidden');
+            btn.textContent = 'Invia Messaggio';
+            btn.disabled = false;
+
+            // Nascondi il messaggio dopo 5 secondi
+            setTimeout(function () {
+                successMsg.classList.add('hidden');
+            }, 5000);
+        }, 800);
+    }
+</script>
+</body>
+</html>

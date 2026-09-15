@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1 flex items-center justify-center py-20 px-4">
+    <div class="text-center max-w-md">
+        <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-5xl">✅</span>
+        </div>
+        <h1 class="font-serif text-4xl font-bold text-charcoal mb-3">Ordine Confermato!</h1>
+        <p class="text-charcoal/60 leading-relaxed mb-2">
+            Grazie per il tuo acquisto, <strong th:text="${username}"></strong>!
+        </p>
+        <p class="text-charcoal/60 text-sm leading-relaxed mb-8">
+            Il tuo ordine è stato ricevuto e sarà elaborato a breve.
+            Riceverai una conferma via email.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a th:href="@{/products}"
+               class="bg-clay hover:bg-clay-dark text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-md">
+                Continua lo Shopping
+            </a>
+            <a th:href="@{/account}"
+               class="border border-clay text-clay hover:bg-clay/10 px-8 py-3 rounded-xl font-semibold transition-all duration-300">
+                Il mio Account
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

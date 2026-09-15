@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <h1 class="font-serif text-4xl font-bold text-charcoal mb-8">Il tuo Carrello</h1>
+
+    <!-- Carrello OSPITE (sessione) -->
+    <div th:if="${isGuest}">
+        <div th:if="${guestCart != null and !guestCart.isEmpty()}">
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-sm text-amber-800">
+                Per procedere al pagamento è necessario
+                <a th:href="@{/login}" class="font-semibold underline">accedere</a> al tuo account.
+                Il carrello verrà mantenuto dopo il login.
+            </div>
+
+            <div class="space-y-3 mb-8">
+                <div th:each="entry : ${guestCart}" class="bg-white rounded-xl p-4 border border-cream-dark flex items-center justify-between">
+                    <span class="text-charcoal/60 text-sm">Prodotto ID: <span th:text="${entry.key}" class="font-medium"></span></span>
+                    <span class="text-charcoal/60 text-sm">Quantità: <span th:text="${entry.value}" class="font-medium"></span></span>
+                    <form th:action="@{/cart/remove}" method="post">
+                        <input type="hidden" name="productId" th:value="${entry.key}">
+                        <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-medium transition-colors">Rimuovi</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <a th:href="@{/products}" class="text-clay hover:underline text-sm">← Continua lo shopping</a>
+                <a th:href="@{/login}" class="bg-clay hover:bg-clay-dark text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300">
+                    Accedi per Pagare
+                </a>
+            </div>
+        </div>
+
+        <div th:if="${guestCart == null or guestCart.isEmpty()}" class="text-center py-20">
+            <p class="text-charcoal/60 text-lg mt-4">Il tuo carrello è vuoto.</p>
+            <a th:href="@{/products}" class="text-clay hover:underline mt-2 inline-block">Esplora i prodotti</a>
+        </div>
+    </div>
+
+    <!-- Carrello UTENTE LOGGATO (DB) -->
+    <div th:unless="${isGuest}">
+        <div th:if="${cartItems != null and !cartItems.isEmpty()}">
+
+            <div class="space-y-4 mb-8">
+                <div th:each="item : ${cartItems}"
+                     class="bg-white rounded-2xl border border-cream-dark p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+
+                    <!-- Immagine -->
+                    <div class="w-20 h-20 rounded-xl overflow-hidden bg-cream-dark flex-shrink-0">
+                        <img th:if="${item.product.imageUrl != null}"
+                             th:src="${item.product.imageUrl}"
+                             th:alt="${item.product.name}"
+                             class="w-full h-full object-cover">
+                        <div th:unless="${item.product.imageUrl != null}" class="w-full h-full flex items-center justify-center">
+                        </div>
+                    </div>
+
+                    <!-- Info prodotto -->
+                    <div class="flex-1">
+                        <p class="text-xs text-clay font-medium" th:text="${item.product.artisan.name}"></p>
+                        <h3 class="font-semibold text-charcoal" th:text="${item.product.name}"></h3>
+                        <p class="text-sm text-charcoal/60">Quantità: <span th:text="${item.quantity}" class="font-medium"></span></p>
+                    </div>
+
+                    <!-- Prezzo subtotale -->
+                    <div class="text-right">
+                        <p class="font-bold text-clay text-lg"
+                           th:text="'€' + ${#numbers.formatDecimal(item.product.price.multiply(new java.math.BigDecimal(item.quantity)), 1, 2)}"></p>
+                        <form th:action="@{/cart/remove}" method="post" class="mt-2">
+                            <input type="hidden" name="productId" th:value="${item.product.id}">
+                            <button type="submit" class="text-red-500 hover:text-red-700 text-xs font-medium transition-colors">Rimuovi</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Totale e checkout -->
+            <div class="bg-white rounded-2xl border border-cream-dark p-6">
+                <div class="flex justify-between items-center text-xl font-bold mb-4">
+                    <span>Totale</span>
+                    <span class="text-clay" th:text="'€' + ${#numbers.formatDecimal(total, 1, 2)}"></span>
+                </div>
+                <a th:href="@{/checkout}"
+                   class="block w-full text-center bg-clay hover:bg-clay-dark text-white py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                    Procedi al Pagamento
+                </a>
+                <a th:href="@{/products}" class="block text-center text-charcoal/50 text-sm mt-3 hover:text-clay">← Continua lo shopping</a>
+            </div>
+        </div>
+
+        <div th:if="${cartItems == null or cartItems.isEmpty()}" class="text-center py-20">
+            <p class="text-charcoal/60 text-lg mt-4">Il tuo carrello è vuoto.</p>
+            <a th:href="@{/products}" class="text-clay hover:underline mt-2 inline-block">Esplora i prodotti</a>
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

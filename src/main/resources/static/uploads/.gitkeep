@@ -1,0 +1,4 @@
+# Questa cartella contiene i file caricati tramite il pannello Admin.
+# Le immagini e i modelli 3D sono salvati qui nel file system locale.
+# Nel database MySQL viene memorizzato solo il percorso URL (es. /uploads/nome-file.glb).
+# NON committare i file caricati in produzione in questo repository.

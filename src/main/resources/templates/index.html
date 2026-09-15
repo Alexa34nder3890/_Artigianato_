@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<!-- Hero Section -->
+<section class="relative bg-charcoal overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/90 to-transparent z-10"></div>
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 flex flex-col md:flex-row items-center gap-12">
+        <div class="flex-1 text-center md:text-left">
+            <p class="text-clay uppercase tracking-widest text-sm font-medium mb-3">Artigianato Italiano</p>
+            <h1 class="font-serif text-5xl md:text-6xl font-bold text-cream leading-tight mb-6">
+                Oggetti Unici,<br>
+                <span class="text-clay">Mani d'Artista</span>
+            </h1>
+            <p class="text-cream/70 text-lg leading-relaxed mb-8 max-w-lg">
+                Ogni pezzo è una storia. Scopri prodotti artigianali realizzati con passione
+                e dedizione da maestri artigiani italiani. Autentico, esclusivo, tuo.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a th:href="@{/products}"
+                   class="bg-clay hover:bg-clay-dark text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
+                    Esplora i Prodotti
+                </a>
+                <a th:href="@{/signup}"
+                   sec:authorize="isAnonymous()"
+                   class="border border-clay text-clay hover:bg-clay/10 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300">
+                    Registrati Gratis
+                </a>
+            </div>
+        </div>
+        <div class="flex-1 flex justify-center">
+            <div class="w-80 h-80 rounded-full overflow-hidden shadow-2xl ring-4 ring-clay/30">
+                <img th:src="@{/images/Artigiano.jpeg}"
+                     alt="Artigiano al lavoro"
+                     class="w-full h-full object-cover">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Section -->
+<section th:if="${videos != null and !videos.isEmpty()}" class="bg-cream-dark/30 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-14">
+            <p class="text-clay uppercase tracking-widest text-sm font-medium mb-2">Il nostro artigianato in movimento</p>
+            <h2 class="font-serif text-4xl font-bold text-charcoal mb-4">Guardaci al lavoro</h2>
+            <p class="text-charcoal/60 text-lg max-w-2xl mx-auto">Immergiti nell'atmosfera della bottega: ogni video racconta una tecnica, una tradizione, un'emozione.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div th:each="video : ${videos}"
+                 class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-cream-dark">
+
+                <video class="w-full h-72 object-cover bg-charcoal"
+                       th:src="${video.videoUrl}"
+                       preload="metadata"
+                       controls
+                       muted
+                       loop>
+                    Il tuo browser non supporta il tag video.
+                </video>
+
+                <!--Titolo eventuale -->
+                <!-- <div class="px-5 py-4">
+                    <h3 class="font-serif text-lg font-semibold text-charcoal leading-tight"
+                        th:text="${video.title}"></h3>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Feature Cards -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="text-center mb-14">
+        <h2 class="font-serif text-4xl font-bold text-charcoal mb-4">Perché scegliere Artigiani</h2>
+        <p class="text-charcoal/60 text-lg max-w-2xl mx-auto">Un'esperienza di acquisto pensata per valorizzare il lavoro dei maestri artigiani italiani</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-cream-dark">
+            <h3 class="font-serif text-xl font-semibold mb-2">Fatto a Mano</h3>
+            <p class="text-charcoal/60 text-sm leading-relaxed">Ogni prodotto è lavorato interamente a mano, senza produzione industriale.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-cream-dark">
+            <h3 class="font-serif text-xl font-semibold mb-2">Visualizzazione 3D</h3>
+            <p class="text-charcoal/60 text-sm leading-relaxed">Esplora ogni prodotto a 360° con il nostro visualizzatore 3D interattivo prima di acquistare.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-cream-dark">
+            <h3 class="font-serif text-xl font-semibold mb-2">Pagamento Sicuro</h3>
+            <p class="text-charcoal/60 text-sm leading-relaxed">Transazioni protette con Stripe. I tuoi dati di pagamento non passano mai per i nostri server.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-charcoal py-16">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="font-serif text-3xl font-bold text-cream mb-4">Inizia la tua collezione oggi</h2>
+        <p class="text-cream/60 text-lg mb-8">Registrati gratuitamente e accedi a centinaia di pezzi unici</p>
+        <a th:href="@{/products}"
+           class="bg-clay hover:bg-clay-dark text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 inline-block">
+            Sfoglia il Catalogo →
+        </a>
+    </div>
+</section>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

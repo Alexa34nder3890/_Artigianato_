@@ -1,0 +1,51 @@
+/* ============================================================
+   Artigiani Bottega – Custom Styles
+   Completano TailwindCSS con stili non generabili via utility
+   ============================================================ */
+
+/* Smooth scroll globale */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Animazione fade-in per le card prodotto */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.grid > * {
+    animation: fadeInUp 0.4s ease both;
+}
+
+/* model-viewer: assicura che il canvas sia responsive */
+model-viewer {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    background-color: #F5EDD6;
+    --progress-bar-color: #B5581A;
+}
+
+/* Clamp utility per text overflow */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Transizioni navbar dropdown */
+nav .group:hover > div {
+    pointer-events: auto;
+}
+
+/* Focus styles accessibili */
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+}
+
+/* Scrollbar custom (webkit) */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #F5EDD6; }
+::-webkit-scrollbar-thumb { background: #B5581A; border-radius: 3px; }

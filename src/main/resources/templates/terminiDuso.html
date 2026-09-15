@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1">
+
+    <!-- Hero intestazione -->
+    <section class="bg-charcoal py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-clay uppercase tracking-widest text-sm font-medium mb-3">Regole del servizio</p>
+            <h1 class="font-serif text-5xl font-bold text-cream mb-4">Termini d'Uso</h1>
+            <p class="text-cream/60 text-lg max-w-2xl mx-auto">
+                Le condizioni che regolano l'utilizzo della piattaforma Artigiani Bottega.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contenuto -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <p class="text-charcoal/50 text-sm mb-10">Ultimo aggiornamento: agosto 2026</p>
+
+        <!-- Avviso importante -->
+        <div class="bg-clay/5 border border-clay/20 rounded-2xl p-5 mb-10">
+            <p class="text-sm text-charcoal/70 leading-relaxed">
+                Accedendo o utilizzando la piattaforma <strong>Artigiani Bottega</strong> accetti i presenti Termini d'Uso.
+                Se non accetti queste condizioni, ti preghiamo di non utilizzare il servizio.
+            </p>
+        </div>
+
+        <!-- 1. Descrizione del servizio -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">1. Descrizione del servizio</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                Artigiani Bottega è una piattaforma di e-commerce dedicata alla vendita di prodotti artigianali
+                italiani realizzati a mano da maestri artigiani selezionati. La piattaforma permette agli utenti
+                di navigare il catalogo, acquistare prodotti, visualizzare i profili degli artigiani e gestire il
+                proprio account personale.
+            </p>
+        </div>
+
+        <!-- 2. Registrazione e account -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">2. Registrazione e account</h2>
+            <ul class="space-y-3 text-charcoal/70 text-sm">
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>La registrazione è gratuita e richiede un indirizzo email valido, un nome utente e una password di almeno 8 caratteri.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>L'utente è responsabile della riservatezza delle proprie credenziali di accesso e di tutte le attività effettuate tramite il proprio account.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>È vietato creare account multipli, condividere le credenziali con terzi o utilizzare credenziali altrui.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>Artigiani Bottega si riserva il diritto di sospendere o eliminare account che violino i presenti termini.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 3. Acquisti e pagamenti -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">3. Acquisti e pagamenti</h2>
+            <ul class="space-y-3 text-charcoal/70 text-sm">
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>I prezzi dei prodotti sono espressi in Euro e includono l'IVA applicabile. Le spese di spedizione, ove previste, sono indicate al momento del checkout.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>I pagamenti sono elaborati in modo sicuro tramite <strong class="text-charcoal">Stripe</strong>. Artigiani Bottega non conserva né ha accesso ai dati della tua carta di credito.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>L'ordine si considera confermato solo a seguito della ricezione della conferma di pagamento da parte di Stripe.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>In caso di problemi con il pagamento, contattaci all'indirizzo <a href="mailto:info@artigianibottega.it" class="text-clay hover:underline">info@artigianibottega.it</a>.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 4. Reso e rimborso -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">4. Reso e rimborso</h2>
+            <p class="text-charcoal/70 leading-relaxed mb-4">
+                Ai sensi del Codice del Consumo (D.Lgs. 206/2005) gli acquirenti privati (consumatori) hanno
+                diritto di recesso entro <strong>14 giorni</strong> dalla ricezione del prodotto, senza necessità
+                di fornire motivazioni.
+            </p>
+            <ul class="space-y-3 text-charcoal/70 text-sm">
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>Il prodotto deve essere restituito integro, non utilizzato e nell'imballaggio originale.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>Le spese di reso sono a carico del consumatore, salvo diversa comunicazione da parte nostra.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span>Il rimborso sarà effettuato entro 14 giorni dalla ricezione del prodotto reso, tramite lo stesso metodo di pagamento utilizzato per l'acquisto.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 5. Proprietà intellettuale -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">5. Proprietà intellettuale</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                Tutti i contenuti presenti sulla piattaforma (testi, immagini, video, loghi, grafiche) sono di
+                proprietà di Artigiani Bottega o degli artigiani partner e sono protetti dalla normativa sul
+                diritto d'autore. È vietata la riproduzione, distribuzione o utilizzo commerciale di tali
+                contenuti senza esplicita autorizzazione scritta.
+            </p>
+        </div>
+
+        <!-- 6. Limitazione di responsabilità -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">6. Limitazione di responsabilità</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                Artigiani Bottega si impegna a garantire la disponibilità e il corretto funzionamento della
+                piattaforma, ma non può essere ritenuta responsabile per interruzioni del servizio causate da
+                eventi al di fuori del proprio controllo (forza maggiore, guasti tecnici di terze parti, ecc.).
+                Le descrizioni e le immagini dei prodotti sono fornite con la massima accuratezza; tuttavia, lievi
+                variazioni nel colore o nelle dimensioni sono possibili per la natura artigianale dei prodotti.
+            </p>
+        </div>
+
+        <!-- 7. Comportamento dell'utente -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">7. Comportamento dell'utente</h2>
+            <p class="text-charcoal/70 leading-relaxed mb-4">L'utente si impegna a non:</p>
+            <ul class="space-y-2 text-charcoal/70 text-sm list-disc list-inside">
+                <li>Utilizzare la piattaforma per scopi illegali o fraudolenti.</li>
+                <li>Tentare di accedere ad aree riservate della piattaforma senza autorizzazione.</li>
+                <li>Inserire contenuti falsi, diffamatori o lesivi nei form del sito.</li>
+                <li>Effettuare scraping automatico dei contenuti della piattaforma.</li>
+            </ul>
+        </div>
+
+        <!-- 8. Modifiche ai termini -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">8. Modifiche ai termini</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                Artigiani Bottega si riserva il diritto di modificare i presenti Termini d'Uso in qualsiasi momento.
+                Le modifiche saranno comunicate tramite avviso sulla piattaforma e/o via email agli utenti registrati.
+                L'utilizzo continuato della piattaforma dopo la pubblicazione delle modifiche costituisce accettazione
+                dei nuovi termini.
+            </p>
+        </div>
+
+        <!-- 9. Legge applicabile -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">9. Legge applicabile e foro competente</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                I presenti Termini d'Uso sono regolati dalla legge italiana. Per qualsiasi controversia relativa
+                all'utilizzo della piattaforma, il foro competente è quello del Titolare del trattamento, salvo
+                diversa disposizione inderogabile di legge a tutela del consumatore.
+            </p>
+        </div>
+
+        <!-- 10. Contatti -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">10. Contatti</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                Per qualsiasi domanda sui presenti Termini d'Uso puoi contattarci a
+                <a href="mailto:info@artigianibottega.it" class="text-clay hover:underline">info@artigianibottega.it</a>
+                oppure visitare la pagina
+                <a th:href="@{/contacts}" class="text-clay hover:underline">Contatti</a>.
+            </p>
+        </div>
+
+    </section>
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>
