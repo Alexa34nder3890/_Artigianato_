@@ -18,7 +18,7 @@
 -- username  : admin
 -- password  : ad_id_07
 -- -------------------------------------------------------------
-MERGE INTO USERS (id, username, password, email, delivery_address, enabled, authority)
+MERGE INTO USERS (id, username, password, email, enabled, authority)
 KEY (username)
 VALUES (1, 'admin', '$2a$10$WPQYb2unD5Bu6S.wEZJpnes7jnA/0HS0G8O21vHWkrktDuWzOx6YC',
-        'admin@artigiani.it', NULL, TRUE, 'ROLE_ADMIN');
+        'admin@artigiani.it', TRUE, 'ROLE_ADMIN');
