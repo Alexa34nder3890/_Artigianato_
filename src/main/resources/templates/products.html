@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-charcoal font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1 flex flex-col items-center justify-center py-12 overflow-hidden">
+
+    <!-- Titolo -->
+    <div class="text-center mb-14 px-4">
+        <p class="text-clay uppercase tracking-widest text-xs font-semibold mb-2">Artigianato Italiano</p>
+        <h1 class="font-serif text-4xl md:text-5xl font-bold text-cream mb-3">Scegli la tua Regione</h1>
+        <p class="text-cream/40 text-sm max-w-md mx-auto">
+            Scopri i migliori pezzi di artigianato per ogni regione, o vai su <strong class="text-cream/70">Made in Italy</strong> per visualizzare l'intero catalogo.
+        </p>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════
+         RADIAL MENU — desktop
+         Layout ispirato a Julien-Marcou/RadialMenu:
+         Ogni item è un bottone circolare indipendente con immagine,
+         posizionato tramite rotate → translate → counter-rotate
+         (index / count come nella lib WPF originale)
+    ════════════════════════════════════════════════════════ -->
+    <div class="radial-menu hidden md:block" style="--total: 20; --radius: 380px;">
+
+        <!-- ── Elemento centrale: Made in Italy ── -->
+        <a href="/products/all" class="radial-center" title="Tutto il catalogo italiano">
+            <div class="center-flag">
+                <span class="flag-stripe green"></span>
+                <span class="flag-stripe white"></span>
+                <span class="flag-stripe red"></span>
+            </div>
+            <span class="center-title">Made in<br>Italy</span>
+            <span class="center-sub">tutto il catalogo →</span>
+        </a>
+
+        <!-- ── Ring items: 20 regioni ── -->
+
+        <a class="radial-item" style="--index:0;"  href="/products/region?region=Abruzzo">
+            <div class="item-img" style="--g1:#2d6a4f;--g2:#1b4332;--g3:#081c15;">
+                <span>Abruzzo</span></div>
+            <span class="item-lbl">Abruzzo</span>
+        </a>
+
+        <a class="radial-item" style="--index:1;"  href="/products/region?region=Basilicata">
+            <div class="item-img" style="--g1:#c4a35a;--g2:#8a6200;--g3:#4a3300;">
+                <span>🏛</span></div>
+            <span class="item-lbl">Basilicata</span>
+        </a>
+
+        <a class="radial-item" style="--index:2;"  href="/products/region?region=Calabria">
+            <div class="item-img" style="--g1:#0096c7;--g2:#0077b6;--g3:#03045e;">
+                <img th:src="@{/images/Regioni/Calabria.jpeg}" alt="Calabbbria"></div>
+            <span class="item-lbl">Calabria</span>
+        </a>
+
+        <a class="radial-item" style="--index:3;"  href="/products/region?region=Campania">
+            <div class="item-img" style="--g1:#e9c46a;--g2:#f4a261;--g3:#e76f51;">
+                <img th:src="@{/images/Regioni/Campania.jpeg}" alt="napl"></div>
+            <span class="item-lbl">Campania</span>
+        </a>
+
+        <a class="radial-item" style="--index:4;"  href="/products/region?region=Emilia-Romagna">
+            <div class="item-img" style="--g1:#c1121f;--g2:#9d0208;--g3:#6a040f;">
+                <span>🧀</span></div>
+            <span class="item-lbl">Emilia-R.</span>
+        </a>
+
+        <a class="radial-item" style="--index:5;"  href="/products/region?region=Friuli-Venezia+Giulia">
+            <div class="item-img" style="--g1:#4cc9f0;--g2:#4361ee;--g3:#3a0ca3;">
+                <span>⛵</span></div>
+            <span class="item-lbl">Friuli-V.G.</span>
+        </a>
+
+        <a class="radial-item" style="--index:6;"  href="/products/region?region=Lazio">
+            <div class="item-img" style="--g1:#e9d8a6;--g2:#b5830a;--g3:#6b4c00;">
+                <span>🏟</span></div>
+            <span class="item-lbl">Lazio</span>
+        </a>
+
+        <a class="radial-item" style="--index:7;"  href="/products/region?region=Liguria">
+            <div class="item-img" style="--g1:#48cae4;--g2:#0096c7;--g3:#005f73;">
+                <span>⚓</span></div>
+            <span class="item-lbl">Liguria</span>
+        </a>
+
+        <a class="radial-item" style="--index:8;"  href="/products/region?region=Lombardia">
+            <div class="item-img" style="--g1:#c77dff;--g2:#9d4edd;--g3:#5a189a;">
+                <span>🏙</span></div>
+            <span class="item-lbl">Lombardia</span>
+        </a>
+
+        <a class="radial-item" style="--index:9;"  href="/products/region?region=Marche">
+            <div class="item-img" style="--g1:#52b788;--g2:#2d6a4f;--g3:#1b4332;">
+                <span>🌿</span></div>
+            <span class="item-lbl">Marche</span>
+        </a>
+
+        <a class="radial-item" style="--index:10;" href="/products/region?region=Molise">
+            <div class="item-img" style="--g1:#a8c686;--g2:#6a994e;--g3:#386641;">
+                <span>🌾</span></div>
+            <span class="item-lbl">Molise</span>
+        </a>
+
+        <a class="radial-item" style="--index:11;" href="/products/region?region=Piemonte">
+            <div class="item-img" style="--g1:#e63946;--g2:#bc3035;--g3:#7b0019;">
+                <span>🍷</span></div>
+            <span class="item-lbl">Piemonte</span>
+        </a>
+
+        <a class="radial-item" style="--index:12;" href="/products/region?region=Puglia">
+            <div class="item-img" style="--g1:#b5e48c;--g2:#76c442;--g3:#386641;">
+                <span>🫒</span></div>
+            <span class="item-lbl">Puglia</span>
+        </a>
+
+        <a class="radial-item" style="--index:13;" href="/products/region?region=Sardegna">
+            <div class="item-img" style="--g1:#48cae4;--g2:#90e0ef;--g3:#f4a261;">
+                <span>🏖</span></div>
+            <span class="item-lbl">Sardegna</span>
+        </a>
+
+        <a class="radial-item" style="--index:14;" href="/products/region?region=Sicilia">
+            <div class="item-img" style="--g1:#ffb703;--g2:#fb8500;--g3:#e36414;">
+                <img th:src="@{/images/Regioni/Sicilia.png}" alt="compà"></div>
+            <span class="item-lbl">Sicilia</span>
+        </a>
+
+        <a class="radial-item" style="--index:15;" href="/products/region?region=Toscana">
+            <div class="item-img" style="--g1:#e07a5f;--g2:#c45c2e;--g3:#6d2b13;">
+                <span>🌻</span></div>
+            <span class="item-lbl">Toscana</span>
+        </a>
+
+        <a class="radial-item" style="--index:16;" href="/products/region?region=Trentino">
+            <div class="item-img" style="--g1:#b5c0d0;--g2:#6b8cba;--g3:#1d3557;">
+                <img th:src="@{/images/Regioni/Trento.jpg}" alt="Trentino">
+            </div>
+            <span class="item-lbl">Trentino Alto Adige</span>
+        </a>
+
+        <a class="radial-item" style="--index:17;" href="/products/region?region=Umbria">
+            <div class="item-img" style="--g1:#606c38;--g2:#283618;--g3:#1a2310;">
+                <span>⛪</span></div>
+            <span class="item-lbl">Umbria</span>
+        </a>
+
+        <a class="radial-item" style="--index:18;" href="/products/region?region=Valle+d%27Aosta">
+            <div class="item-img" style="--g1:#d0d0d0;--g2:#8fa3b1;--g3:#3d5467;">
+                <span>⛷</span></div>
+            <span class="item-lbl">Valle d'Aosta</span>
+        </a>
+
+        <a class="radial-item" style="--index:19;" href="/products/region?region=Veneto">
+            <div class="item-img" style="--g1:#f3722c;--g2:#c1440e;--g3:#7b1d1d;">
+                <span>🚣</span></div>
+            <span class="item-lbl">Veneto</span>
+        </a>
+
+    </div><!-- /radial-menu -->
+
+    <!-- ════════════════════════════════════════════
+         MOBILE — griglia semplice
+    ════════════════════════════════════════════ -->
+    <div class="md:hidden w-full max-w-sm mx-auto px-4 mt-2">
+        <a href="/products/all"
+           class="flex items-center justify-center gap-2 w-full
+                  text-charcoal font-bold rounded-2xl py-4 mb-5 shadow-xl text-sm
+                  bg-gradient-to-r from-green-700 via-white to-red-600">
+            🇮🇹 Made in Italy — tutto il catalogo
+        </a>
+        <div class="grid grid-cols-3 gap-2">
+            <a th:each="r : ${ {'Abruzzo','Basilicata','Calabria','Campania','Emilia-Romagna','Friuli-Venezia Giulia','Lazio','Liguria','Lombardia','Marche','Molise','Piemonte','Puglia','Sardegna','Sicilia','Toscana','Trentino','Umbria','Veneto'} }"
+               th:href="@{/products/region(region=${r})}"
+               th:text="${r}"
+               class="flex items-center justify-center text-center py-2 px-1 rounded-xl
+                      bg-white/5 border border-white/10 text-cream text-xs font-semibold
+                      hover:bg-clay hover:border-clay transition-all">
+            </a>
+            <a href="/products/region?region=Valle+d%27Aosta"
+               class="flex items-center justify-center text-center py-2 px-1 rounded-xl
+                      bg-white/5 border border-white/10 text-cream text-xs font-semibold
+                      hover:bg-clay hover:border-clay transition-all">
+                Valle d'Aosta
+            </a>
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+
+<!-- ════════════════════════════════════════════════════════
+     STILI — Radial Menu
+     Tecnica: rotate(angle) translate(radius) rotate(-angle)
+     identica all'approccio Julien-Marcou (Index / Count)
+════════════════════════════════════════════════════════ -->
+<style>
+/* ─── Container ─── */
+.radial-menu {
+    position: relative;
+    width:  760px;
+    height: 760px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ─── Centro ─── */
+.radial-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    background: #faf0e6;             /* sfondo bianco esplicito */
+    border: 4px solid #000000;       /* ← bordo cerchio CENTRALE: spessore e colore */
+    box-shadow:
+        0 0 0 6px rgba(0,0,0,0.06),
+        0 8px 32px rgba(0,0,0,0.18),
+        inset 0 1px 1px rgba(255,255,255,0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    z-index: 20;
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1),
+                box-shadow 0.25s;
+    cursor: pointer;
+}
+.radial-center:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow:
+        0 0 0 8px rgba(196,92,46,0.2),
+        0 12px 40px rgba(196,92,46,0.3),
+        inset 0 1px 1px rgba(255,255,255,0.8);
+}
+
+/* Flag tricolore in background */
+.center-flag {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    border-radius: 50%;
+    overflow: hidden;
+    opacity: 0.55;   /* più visibile sul background chiaro */
+}
+.flag-stripe        { flex: 1; }
+.flag-stripe.green  { background: #009246; }
+.flag-stripe.white  { background: #f0f0f0; }
+.flag-stripe.red    { background: #ce2b37; }
+
+.center-emoji  { font-size: 32px; line-height: 1; position: relative; z-index: 1; }
+.center-title  { font-family: 'Playfair Display', serif;
+                 font-size: 11px; font-weight: 700; color: #f5f0ea;
+                 text-align: center; line-height: 1.3; position: relative; z-index: 1; }
+.center-sub    { font-size: 7.5px; color: rgba(245,240,234,0.45); position: relative; z-index: 1; }
+
+/* ─── Item radiale ─── */
+.radial-item {
+    /* Posizionamento Julien-Marcou: rotate → translate → counter-rotate */
+    position: absolute;
+    top: 50%; left: 50%;
+
+    /* Dimensione del contenitore item (cerchio + label).
+       Deve essere ≥ .item-img per contenere cerchio e label. */
+    width:  96px;   /* ← modifica in proporzione a .item-img */
+    height: 96px;   /* ← modifica in proporzione a .item-img */
+
+    transform:
+        translate(-50%, -50%)
+        rotate(calc(var(--index) * (360deg / var(--total))))
+        translateY(calc(-1 * var(--radius)))
+        rotate(calc(var(--index) * (-360deg / var(--total))));
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    cursor: pointer;
+
+    /* Non tenere il div centrato sul punto — aggiustiamo con translate */
+}
+
+/* ─── Immagine circolare ───
+   Per cambiare la dimensione del cerchio modifica:
+     width / height  di  .item-img  (qui sotto)
+   e in proporzione anche  width / height  di  .radial-item  (sopra).
+   Esempio: 90px cerchio → item-img 90px, radial-item 96px
+─────────────────────────────────────────────────── */
+.item-img {
+    width:  120px;   /* ← dimensione cerchio */
+    height: 120px;   /* ← dimensione cerchio */
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--g1, #555), var(--g2, #333) 60%, var(--g3, #111));
+    border: 4px solid #111111;   /* ← bordo cerchi REGIONI: spessore e colore */
+    box-shadow:
+        0 4px 16px rgba(0,0,0,0.55),
+        inset 0 1px 1px rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform 0.22s cubic-bezier(.34,1.56,.64,1),
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+/* Immagine reale — riempie il cerchio senza distorsioni */
+.item-img img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Luce speculare sopra l'immagine (effetto vetro/lucido) */
+.item-img::before {
+    content: '';
+    position: absolute;
+    top: 6px; left: 10px;
+    width: 36px; height: 18px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 50%;
+    filter: blur(4px);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Emoji fallback (quando non c'è img) */
+.item-img span {
+    font-size: 28px;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* ─── Label regione ─── */
+.item-lbl {
+    font-size: 8.5px;          /* ← dimensione testo label */
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgba(245,240,234,0.75);
+    text-align: center;
+    line-height: 1.3;
+    max-width: 96px;           /* ← larghezza max label (= .radial-item width) */
+    white-space: normal;       /* permette a-capo automatico */
+    overflow: visible;         /* non taglia il testo */
+    word-break: break-word;    /* spezza parole lunghe se necessario */
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+/* ─── Hover ─── */
+.radial-item:hover .item-img {
+    transform: scale(1.18);
+    border-color: #C45C2E;
+    box-shadow:
+        0 0 0 4px rgba(196,92,46,0.25),
+        0 8px 28px rgba(196,92,46,0.45),
+        inset 0 1px 1px rgba(255,255,255,0.15);
+}
+.radial-item:hover .item-lbl {
+    color: #f5a070;
+}
+
+/* ─── Cerchio decorativo dietro i bottoni ─── */
+.radial-menu::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width:  680px;
+    height: 680px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255,255,255,0.05);
+    pointer-events: none;
+}
+.radial-menu::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.04);
+    pointer-events: none;
+}
+</style>
+
+</body>
+</html>

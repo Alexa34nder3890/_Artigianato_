@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1">
+
+    <!-- Hero -->
+    <section class="bg-charcoal py-14">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <a th:href="@{/products}" class="text-clay hover:underline text-sm inline-block mb-5">← Torna alle regioni</a>
+            <p class="text-clay uppercase tracking-widest text-sm font-medium mb-2">Artigianato locale</p>
+            <h1 class="font-serif text-5xl font-bold text-cream">
+                <span th:text="${region}">Regione</span>
+            </h1>
+            <p class="text-cream/60 text-lg mt-3 max-w-2xl">
+                Seleziona una città per scoprire gli artigiani registrati in
+                <span th:text="${region}">questa regione</span>.
+            </p>
+        </div>
+    </section>
+
+    <!-- Griglia città -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+
+        <!-- Città presenti -->
+        <div th:if="${!cities.isEmpty()}"
+             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+            <a th:each="city : ${cities}"
+               th:href="@{/products/city(region=${region},city=${city})}"
+               class="group relative overflow-hidden rounded-2xl shadow-sm hover:shadow-xl
+                      transition-all duration-300 hover:-translate-y-1
+                      border border-cream-dark bg-white min-h-[160px] flex flex-col justify-end">
+
+                <!-- Sfondo decorativo -->
+                <div class="absolute inset-0 bg-gradient-to-br from-clay/5 to-charcoal/5"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-6xl opacity-10 select-none">📍</span>
+                </div>
+
+                <div class="relative z-10 p-6">
+                    <div class="inline-flex items-center gap-1.5 bg-clay/10 text-clay text-xs font-semibold
+                                px-3 py-1 rounded-full mb-3 uppercase tracking-wider">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        </svg>
+                        <span th:text="${region}"></span>
+                    </div>
+                    <h2 class="font-serif text-xl font-bold text-charcoal leading-tight"
+                        th:text="${city}"></h2>
+                </div>
+
+                <div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-charcoal/5
+                            flex items-center justify-center group-hover:bg-clay transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-charcoal group-hover:text-white"
+                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
+
+        <!-- Nessuna città / artigiano ancora -->
+        <div th:if="${cities.isEmpty()}" class="text-center py-24">
+            <div class="w-24 h-24 bg-clay/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            </div>
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-3">
+                Nessun artigiano ancora registrato in
+                <span class="text-clay" th:text="${region}">questa regione</span>
+            </h2>
+            <p class="text-charcoal/50 text-sm max-w-md mx-auto mb-8">
+                L'amministratore non ha ancora aggiunto artigiani con questa regione.
+                Torna a trovarci presto — nuovi maestri vengono aggiunti regolarmente!
+            </p>
+            <a th:href="@{/products}"
+               class="bg-clay hover:bg-clay-dark text-white px-8 py-3 rounded-xl font-semibold
+                      transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 inline-block">
+                ← Torna alle regioni
+            </a>
+        </div>
+
+    </section>
+
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1">
+
+    <section class="bg-charcoal py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-clay uppercase tracking-widest text-sm font-medium mb-3">Trasparenza &amp; Controllo</p>
+            <h1 class="font-serif text-5xl font-bold text-cream mb-4">Informativa sui Cookie</h1>
+            <p class="text-cream/60 text-lg max-w-2xl mx-auto">
+                Cosa sono i cookie, quali utilizziamo e come gestirli.
+            </p>
+        </div>
+    </section>
+
+
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <p class="text-charcoal/50 text-sm mb-10">Ultimo aggiornamento: agosto 2026</p>
+
+
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">1. Cosa sono i cookie?</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                I cookie sono piccoli file di testo che i siti web salvano sul tuo dispositivo (computer, smartphone, tablet)
+                quando li visiti. Servono a far funzionare il sito in modo efficiente, a ricordare le tue preferenze e, in alcuni
+                casi, a raccogliere informazioni statistiche anonime sull'utilizzo del sito.
+            </p>
+        </div>
+
+
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">2. Cookie che utilizziamo</h2>
+            <p class="text-charcoal/70 leading-relaxed mb-6">
+                <strong>Artigiani Bottega utilizza esclusivamente cookie tecnici strettamente necessari</strong> al funzionamento
+                della piattaforma. Non utilizziamo cookie di profilazione, cookie di terze parti a scopo pubblicitario,
+                né strumenti di tracciamento del comportamento.
+            </p>
+
+            <div class="overflow-x-auto rounded-2xl border border-cream-dark">
+                <table class="w-full text-sm">
+                    <thead class="bg-clay/10 text-charcoal">
+                        <tr>
+                            <th class="text-left px-5 py-3 font-semibold">Nome cookie</th>
+                            <th class="text-left px-5 py-3 font-semibold">Tipologia</th>
+                            <th class="text-left px-5 py-3 font-semibold">Scopo</th>
+                            <th class="text-left px-5 py-3 font-semibold">Durata</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-cream-dark bg-white">
+                        <tr>
+                            <td class="px-5 py-4 font-mono text-xs text-clay">JSESSIONID</td>
+                            <td class="px-5 py-4 text-charcoal/70">Tecnico / Sessione</td>
+                            <td class="px-5 py-4 text-charcoal/70">Gestisce la sessione utente (login, carrello ospite)</td>
+                            <td class="px-5 py-4 text-charcoal/70">Fine sessione browser</td>
+                        </tr>
+                        <tr>
+                            <td class="px-5 py-4 font-mono text-xs text-clay">XSRF-TOKEN</td>
+                            <td class="px-5 py-4 text-charcoal/70">Tecnico / Sicurezza</td>
+                            <td class="px-5 py-4 text-charcoal/70">Protezione CSRF per i form</td>
+                            <td class="px-5 py-4 text-charcoal/70">Fine sessione browser</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- 3. Cookie di terze parti -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">3. Cookie di terze parti</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                Il sito carica alcune risorse esterne necessarie all'esperienza utente (font Google, CDN Tailwind CSS, Stripe per
+                i pagamenti). Questi fornitori possono impostare propri cookie tecnici sul tuo dispositivo, ma
+                <strong>Artigiani Bottega non controlla tali cookie</strong> e non li utilizza a fini di profilazione.
+                Ti invitiamo a consultare le informative privacy di ciascun fornitore:
+            </p>
+            <ul class="mt-4 space-y-2 text-sm text-clay list-disc list-inside">
+                <li><a href="https://policies.google.com/privacy" target="_blank" class="hover:underline">Google Fonts – Privacy Policy</a></li>
+                <li><a href="https://stripe.com/it/privacy" target="_blank" class="hover:underline">Stripe – Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <!-- 4. Come disabilitare i cookie -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">4. Come gestire i cookie</h2>
+            <p class="text-charcoal/70 leading-relaxed mb-4">
+                Poiché utilizziamo solo cookie tecnici, non è presente un banner di consenso. Puoi comunque configurare il tuo
+                browser per bloccare o cancellare i cookie in qualsiasi momento. Tieni presente che disabilitare i cookie tecnici
+                potrebbe compromettere alcune funzionalità del sito (es. impossibilità di effettuare il login).
+            </p>
+            <p class="text-charcoal/70 leading-relaxed">
+                Consulta la guida del tuo browser per sapere come gestire i cookie:
+                <a href="https://support.google.com/chrome/answer/95647" target="_blank" class="text-clay hover:underline">Chrome</a>,
+                <a href="https://support.mozilla.org/it/kb/protezione-antitracciamento-avanzata-firefox-desktop" target="_blank" class="text-clay hover:underline">Firefox</a>,
+                <a href="https://support.apple.com/it-it/guide/safari/sfri11471/mac" target="_blank" class="text-clay hover:underline">Safari</a>.
+            </p>
+        </div>
+
+        <!-- 5. Contatti -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">5. Contatti</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                Per qualsiasi domanda relativa all'utilizzo dei cookie puoi scriverci a
+                <a href="mailto:info@artigianibottega.it" class="text-clay hover:underline">info@artigianibottega.it</a>
+                oppure consultare la nostra
+                <a th:href="@{/privacy}" class="text-clay hover:underline">Informativa sulla Privacy</a>.
+            </p>
+        </div>
+
+    </section>
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

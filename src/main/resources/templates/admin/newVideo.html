@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <div class="flex items-center gap-3 mb-8">
+        <a th:href="@{/admin}" class="text-clay hover:underline text-sm">← Torna al pannello</a>
+    </div>
+
+    <h1 class="font-serif text-4xl font-bold text-charcoal mb-2">Carica Nuovo Video</h1>
+    <p class="text-charcoal/60 mb-8">Aggiungi un video alla sezione dedicata nella homepage</p>
+
+    <!-- Messaggio di errore -->
+    <div th:if="${error}" class="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+        <span th:text="${error}"></span>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-cream-dark p-8">
+        <form th:action="@{/admin/video/save}" method="post" enctype="multipart/form-data" class="space-y-5">
+
+            <div>
+                <label for="title" class="block text-sm font-medium text-charcoal mb-1">Titolo *</label>
+                <input type="text" id="title" name="title" required
+                       class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm"
+                       placeholder="es. L'Arte della Ceramica Toscana">
+            </div>
+
+            <div>
+                <label for="description" class="block text-sm font-medium text-charcoal mb-1">Descrizione</label>
+                <textarea id="description" name="description" rows="4"
+                          class="w-full border border-cream-dark rounded-lg px-4 py-3 bg-cream focus:outline-none focus:ring-2 focus:ring-clay/50 focus:border-clay text-sm resize-none"
+                          placeholder="Breve descrizione del contenuto del video…"></textarea>
+            </div>
+
+            <div>
+                <label for="videoFile" class="block text-sm font-medium text-charcoal mb-1">File Video *</label>
+                <label for="videoFile"
+                       class="cursor-pointer flex items-center gap-3 border border-dashed border-cream-dark rounded-lg px-4 py-4 bg-cream hover:border-clay hover:bg-clay/5 transition-colors w-full">
+                    <div class="w-10 h-10 bg-clay/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-clay" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-charcoal" id="videoLabel">Scegli un file video…</p>
+                        <p class="text-xs text-charcoal/40 mt-0.5">MP4, WebM, OGG — max 50 MB</p>
+                    </div>
+                </label>
+                <input type="file" id="videoFile" name="videoFile" accept="video/*" required class="hidden"
+                       onchange="document.getElementById('videoLabel').textContent = this.files[0]?.name || 'Scegli un file video…'">
+            </div>
+
+            <div class="flex gap-4 pt-2">
+                <button type="submit"
+                        class="bg-clay hover:bg-clay-dark text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                    Carica Video
+                </button>
+                <a th:href="@{/admin}"
+                   class="border border-cream-dark text-charcoal/60 hover:text-charcoal px-8 py-3 rounded-xl font-medium transition-colors">
+                    Annulla
+                </a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<section class="bg-charcoal min-h-screen flex flex-col items-center justify-center py-16 overflow-hidden">
+
+    <div class="text-center mb-10">
+        <p class="text-clay uppercase tracking-widest text-sm font-medium mb-2">Artigianato Italiano</p>
+        <h1 class="font-serif text-5xl font-bold text-cream mb-3">Scegli la tua Regione</h1>
+        <p class="text-cream/50 text-base max-w-xl mx-auto">
+            Clicca su un settore per scoprire gli artigiani locali,<br>
+            o su <strong class="text-cream/80">Made in Italy</strong> al centro per l'intero catalogo.
+        </p>
+    </div> -->
+
+    <!-- RADIAL MENU — desktop -->
+    <div id="radial-wrapper" class="hidden md:block relative select-none" style="width:800px;height:800px;">
+
+        <svg id="radial-svg"
+             width="800" height="800"
+             viewBox="0 0 800 800"
+             xmlns="http://www.w3.org/2000/svg"
+             xmlns:xlink="http://www.w3.org/1999/xlink">
+
+            <defs>
+                <!-- Filtro ombra sui settori -->
+                <filter id="sector-shadow" x="-10%" y="-10%" width="120%" height="120%">
+                    <feDropShadow dx="0" dy="3" stdDeviation="8" flood-color="rgba(0,0,0,0.55)"/>
+                </filter>
+                <!-- Filtro glow hover -->
+                <filter id="sector-glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="rgba(196,92,46,0.85)"/>
+                </filter>
+                <!-- Filtro glow centro -->
+                <filter id="center-glow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="rgba(255,255,255,0.25)"/>
+                    <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="rgba(34,139,34,0.5)"/>
+                </filter>
+                <!-- Pattern/gradient di fallback per ogni regione -->
+                <!-- Ogni regione ha un gradiente caratteristico -->
+                <linearGradient id="g-abruzzo"        x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2d6a4f"/><stop offset="100%" stop-color="#1b4332"/></linearGradient>
+                <linearGradient id="g-basilicata"     x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#774936"/><stop offset="100%" stop-color="#3d1f10"/></linearGradient>
+                <linearGradient id="g-calabria"       x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0077b6"/><stop offset="100%" stop-color="#023e8a"/></linearGradient>
+                <linearGradient id="g-campania"       x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e9c46a"/><stop offset="100%" stop-color="#b5830a"/></linearGradient>
+                <linearGradient id="g-emilia"         x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c1121f"/><stop offset="100%" stop-color="#780000"/></linearGradient>
+                <linearGradient id="g-friuli"         x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4cc9f0"/><stop offset="100%" stop-color="#4361ee"/></linearGradient>
+                <linearGradient id="g-lazio"          x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffd60a"/><stop offset="100%" stop-color="#9d6b00"/></linearGradient>
+                <linearGradient id="g-liguria"        x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#48cae4"/><stop offset="100%" stop-color="#0077b6"/></linearGradient>
+                <linearGradient id="g-lombardia"      x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c77dff"/><stop offset="100%" stop-color="#5a189a"/></linearGradient>
+                <linearGradient id="g-marche"         x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2dc653"/><stop offset="100%" stop-color="#065a17"/></linearGradient>
+                <linearGradient id="g-molise"         x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8ab17d"/><stop offset="100%" stop-color="#3a5a40"/></linearGradient>
+                <linearGradient id="g-piemonte"       x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e63946"/><stop offset="100%" stop-color="#7b0019"/></linearGradient>
+                <linearGradient id="g-puglia"         x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#80b918"/><stop offset="100%" stop-color="#386641"/></linearGradient>
+                <linearGradient id="g-sardegna"       x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f4a261"/><stop offset="100%" stop-color="#be5a00"/></linearGradient>
+                <linearGradient id="g-sicilia"        x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffb703"/><stop offset="100%" stop-color="#fb8500"/></linearGradient>
+                <linearGradient id="g-toscana"        x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e07a5f"/><stop offset="100%" stop-color="#8b3a2a"/></linearGradient>
+                <linearGradient id="g-trentino"       x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#b5c0d0"/><stop offset="100%" stop-color="#4a6fa5"/></linearGradient>
+                <linearGradient id="g-umbria"         x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#606c38"/><stop offset="100%" stop-color="#283618"/></linearGradient>
+                <linearGradient id="g-valle"          x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="100%" stop-color="#7a7a7a"/></linearGradient>
+                <linearGradient id="g-veneto"         x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f3722c"/><stop offset="100%" stop-color="#9b2226"/></linearGradient>
+
+                <!-- ClipPaths per i settori (generati da JS) -->
+            </defs>
+
+            <!-- Layer settori (generato da JS) -->
+            <g id="radial-sectors"></g>
+
+            <!-- Layer emoji/icone regioni (generato da JS) -->
+            <g id="radial-icons"></g>
+
+            <!-- Layer label (generato da JS) -->
+            <g id="radial-labels"></g>
+
+            <!-- Anello separatore interno -->
+            <circle cx="400" cy="400" r="112" fill="#1e1812" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+
+            <!-- Elemento centrale: Made in Italy -->
+            <a href="/products/all" style="cursor:pointer;">
+                <g id="center-group" filter="url(#center-glow)">
+                    <!-- Sfondo gradiente tricolore -->
+                    <defs>
+                        <radialGradient id="rg-center" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%"   stop-color="#ffffff"/>
+                            <stop offset="40%"  stop-color="#f8f8f8"/>
+                            <stop offset="100%" stop-color="#e8e8e8"/>
+                        </radialGradient>
+                    </defs>
+                    <!-- Cerchio di base bianco -->
+                    <circle cx="400" cy="400" r="108" fill="url(#rg-center)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                    <!-- Striscia tricolore a sinistra (verde) -->
+                    <path d="M 400 292 A 108 108 0 0 0 274.6 364 L 400 400 Z" fill="#009246" opacity="0.85"/>
+                    <!-- Striscia tricolore a destra (rosso) -->
+                    <path d="M 400 400 L 525.4 364 A 108 108 0 0 0 400 292 Z" fill="#ce2b37" opacity="0.85"/>
+                    <!-- Cerchio interno bianco per testo -->
+                    <circle cx="400" cy="400" r="80" fill="white" opacity="0.95"/>
+                    <!-- Emoji bandiera -->
+                    <text x="400" y="390" text-anchor="middle" dominant-baseline="middle"
+                          font-size="30">🇮🇹</text>
+                    <!-- Testo Made in Italy -->
+                    <text x="400" y="420" text-anchor="middle"
+                          font-family="'Playfair Display', serif"
+                          font-size="10" font-weight="700"
+                          fill="#1e1812" letter-spacing="0.5">MADE IN ITALY</text>
+                    <!-- Sottotesto catalogo -->
+                    <text x="400" y="434" text-anchor="middle"
+                          font-family="system-ui, sans-serif"
+                          font-size="7.5" fill="#666">tutto il catalogo →</text>
+                </g>
+                <!-- Area hover trasparente -->
+                <circle cx="400" cy="400" r="108" fill="transparent"/>
+            </a>
+
+        </svg>
+
+        <!-- Tooltip -->
+        <div id="radial-tooltip"
+             class="pointer-events-none fixed z-50 bg-charcoal/90 text-cream text-xs font-bold
+                        px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm
+                        opacity-0 transition-opacity duration-150 whitespace-nowrap"
+             style="transform:translate(-50%,-140%);">
+        </div>
+    </div>
+
+    <!-- MOBILE: griglia semplice -->
+    <div class="md:hidden w-full max-w-lg mx-auto px-4 mt-4">
+        <a href="/products/all"
+           class="flex items-center justify-center gap-2 w-full
+                      bg-gradient-to-r from-green-700 via-white to-red-600
+                      text-charcoal font-bold rounded-2xl py-4 mb-4 shadow-lg text-sm">
+            🇮🇹 Made in Italy — Tutto il catalogo
+        </a>
+        <div class="grid grid-cols-2 gap-2">
+            <a th:href="@{/products/region(region='Abruzzo')}"           class="mobile-reg">🏔 Abruzzo</a>
+            <a th:href="@{/products/region(region='Basilicata')}"        class="mobile-reg">🌋 Basilicata</a>
+            <a th:href="@{/products/region(region='Calabria')}"          class="mobile-reg">🌊 Calabria</a>
+            <a th:href="@{/products/region(region='Campania')}"          class="mobile-reg">🍕 Campania</a>
+            <a th:href="@{/products/region(region='Emilia-Romagna')}"    class="mobile-reg">🧀 Emilia-R.</a>
+            <a th:href="@{/products/region(region='Friuli-Venezia Giulia')}" class="mobile-reg">🏔 Friuli-V.G.</a>
+            <a th:href="@{/products/region(region='Lazio')}"             class="mobile-reg">🏛 Lazio</a>
+            <a th:href="@{/products/region(region='Liguria')}"           class="mobile-reg">⚓ Liguria</a>
+            <a th:href="@{/products/region(region='Lombardia')}"         class="mobile-reg">🏙 Lombardia</a>
+            <a th:href="@{/products/region(region='Marche')}"            class="mobile-reg">🌿 Marche</a>
+            <a th:href="@{/products/region(region='Molise')}"            class="mobile-reg">🌾 Molise</a>
+            <a th:href="@{/products/region(region='Piemonte')}"          class="mobile-reg">🍷 Piemonte</a>
+            <a th:href="@{/products/region(region='Puglia')}"            class="mobile-reg">🫒 Puglia</a>
+            <a th:href="@{/products/region(region='Sardegna')}"          class="mobile-reg">🏝 Sardegna</a>
+            <a th:href="@{/products/region(region='Sicilia')}"           class="mobile-reg">🍊 Sicilia</a>
+            <a th:href="@{/products/region(region='Toscana')}"           class="mobile-reg">🌻 Toscana</a>
+            <a th:href="@{/products/region(region='Trentino')}"          class="mobile-reg">🎿 Trentino</a>
+            <a th:href="@{/products/region(region='Umbria')}"            class="mobile-reg">🌲 Umbria</a>
+            <a href="/products/region?region=Valle+d%27Aosta"            class="mobile-reg">⛷ Valle d'A.</a>
+            <a th:href="@{/products/region(region='Veneto')}"            class="mobile-reg">🚣 Veneto</a>
+        </div>
+    </div>
+
+</section>
+
+</main>

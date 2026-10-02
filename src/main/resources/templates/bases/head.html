@@ -1,0 +1,31 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artigiani – E-Commerce Artigianato Italiano</title>
+    <meta name="description" content="Scopri e acquista prodotti artigianali unici realizzati a mano da maestri artigiani italiani.">
+    <link rel="icon" th:href="@{/images/favicon.ico}">
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clay:    { DEFAULT: '#B5581A', light: '#D4742A', dark: '#8A3E10' },
+                        cream:   { DEFAULT: '#F5EDD6', dark: '#E8D9B5' },
+                        charcoal:{ DEFAULT: '#2C2416', light: '#3D3220' },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>

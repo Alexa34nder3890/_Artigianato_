@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1">
+
+    <!-- Hero -->
+    <section class="bg-charcoal py-14">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Breadcrumb -->
+            <div class="flex items-center gap-2 text-sm mb-6">
+                <a th:href="@{/products}" class="text-clay hover:underline">← Regioni</a>
+                <span class="text-cream/30">/</span>
+                <a th:href="@{/products/region(region=${region})}"
+                   class="text-clay hover:underline" th:text="${region}">Regione</a>
+                <span class="text-cream/30">/</span>
+                <span class="text-cream/60" th:text="${city}">Città</span>
+            </div>
+
+            <p class="text-clay uppercase tracking-widest text-sm font-medium mb-2" th:text="${region}"></p>
+            <h1 class="font-serif text-5xl font-bold text-cream" th:text="${city}">Città</h1>
+            <p class="text-cream/60 text-lg mt-3">
+                Prodotti artigianali di <span th:text="${city}" class="font-semibold text-cream/80"></span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Griglia prodotti -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+
+        <div th:if="${!products.isEmpty()}"
+             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+            <div th:each="product : ${products}"
+                 class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl
+                        transition-all duration-300 hover:-translate-y-1
+                        border border-cream-dark group">
+
+                <!-- Immagine -->
+                <div class="relative overflow-hidden h-52">
+                    <img th:if="${product.imageUrl != null}"
+                         th:src="${product.imageUrl}" th:alt="${product.name}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div th:unless="${product.imageUrl != null}"
+                         class="w-full h-full bg-cream-dark flex items-center justify-center">
+                        <span class="text-5xl">🏺</span>
+                    </div>
+                    <span class="absolute top-3 left-3 bg-charcoal/80 text-cream text-xs px-3 py-1 rounded-full backdrop-blur-sm"
+                          th:text="${product.category}"></span>
+                    <span th:if="${product.model3dUrl != null}"
+                          class="absolute top-3 right-3 bg-clay text-white text-xs px-3 py-1 rounded-full">3D</span>
+                </div>
+
+                <!-- Info -->
+                <div class="p-5">
+                    <p class="text-xs text-clay font-medium mb-1" th:text="${product.artisan.name}"></p>
+                    <h3 class="font-serif text-base font-semibold text-charcoal mb-1 line-clamp-2"
+                        th:text="${product.name}"></h3>
+                    <div class="flex items-center justify-between mt-3">
+                        <span class="text-lg font-bold text-clay"
+                              th:text="'€' + ${#numbers.formatDecimal(product.price, 1, 2)}"></span>
+                        <a th:href="@{/products/{id}(id=${product.id})}"
+                           class="bg-charcoal hover:bg-clay text-white text-sm px-4 py-2 rounded-lg transition-colors duration-200">
+                            Vedi →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stato vuoto -->
+        <div th:if="${products.isEmpty()}" class="text-center py-24">
+            <span class="text-6xl">🏺</span>
+            <h2 class="font-serif text-2xl font-bold text-charcoal mt-6 mb-3">
+                Nessun prodotto ancora disponibile a <span th:text="${city}" class="text-clay"></span>
+            </h2>
+            <p class="text-charcoal/50 text-sm max-w-md mx-auto mb-8">
+                L'amministratore non ha ancora inserito prodotti per questa città.
+            </p>
+            <a th:href="@{/products/region(region=${region})}"
+               class="bg-clay hover:bg-clay-dark text-white px-8 py-3 rounded-xl font-semibold
+                      transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 inline-block">
+                ← Torna alle città di <span th:text="${region}"></span>
+            </a>
+        </div>
+
+    </section>
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

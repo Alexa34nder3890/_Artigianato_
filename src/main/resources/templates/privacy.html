@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1">
+
+    <!-- Hero intestazione -->
+    <section class="bg-charcoal py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-clay uppercase tracking-widest text-sm font-medium mb-3">I tuoi dati, la nostra responsabilità</p>
+            <h1 class="font-serif text-5xl font-bold text-cream mb-4">Informativa sulla Privacy</h1>
+            <p class="text-cream/60 text-lg max-w-2xl mx-auto">
+                Come raccogliamo, utilizziamo e proteggiamo i tuoi dati personali.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contenuto -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <p class="text-charcoal/50 text-sm mb-10">Ultimo aggiornamento: agosto 2026</p>
+
+        <!-- 1. Titolare -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">1. Titolare del trattamento</h2>
+            <div class="bg-white rounded-2xl border border-cream-dark p-6 text-charcoal/70 text-sm leading-relaxed space-y-1">
+                <p><strong class="text-charcoal">Artigiani Bottega</strong></p>
+                <p>Sede legale: Via dell'Artigianato 1, Italia</p>
+                <p>P.IVA: IT01234567890</p>
+                <p>Email: <a href="mailto:info@artigianibottega.it" class="text-clay hover:underline">info@artigianibottega.it</a></p>
+            </div>
+        </div>
+
+        <!-- 2. Dati raccolti -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">2. Dati personali che raccogliamo</h2>
+            <p class="text-charcoal/70 leading-relaxed mb-4">
+                Raccogliamo i dati che ci fornisci direttamente durante la registrazione e l'utilizzo della piattaforma:
+            </p>
+            <ul class="space-y-3 text-charcoal/70 text-sm">
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span><strong class="text-charcoal">Dati di registrazione:</strong> nome utente, indirizzo email e password.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span><strong class="text-charcoal">Dati di acquisto:</strong> informazioni sugli ordini effettuati (prodotti, importi, date). I dati di pagamento sono gestiti esclusivamente da Stripe e non transitano nei nostri server.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-clay mt-1">▸</span>
+                    <span><strong class="text-charcoal">Dati tecnici:</strong> log di accesso, indirizzo IP, tipo di browser, unicamente per garantire sicurezza e funzionamento del servizio.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 3. Finalità -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">3. Finalità del trattamento</h2>
+            <div class="overflow-x-auto rounded-2xl border border-cream-dark">
+                <table class="w-full text-sm">
+                    <thead class="bg-clay/10 text-charcoal">
+                        <tr>
+                            <th class="text-left px-5 py-3 font-semibold">Finalità</th>
+                            <th class="text-left px-5 py-3 font-semibold">Base giuridica</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-cream-dark bg-white">
+                        <tr>
+                            <td class="px-5 py-4 text-charcoal/70">Gestione dell'account e autenticazione</td>
+                            <td class="px-5 py-4 text-charcoal/70">Esecuzione del contratto (art. 6 §1 lett. b GDPR)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-5 py-4 text-charcoal/70">Elaborazione degli ordini e pagamenti</td>
+                            <td class="px-5 py-4 text-charcoal/70">Esecuzione del contratto (art. 6 §1 lett. b GDPR)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-5 py-4 text-charcoal/70">Reset della password via email</td>
+                            <td class="px-5 py-4 text-charcoal/70">Esecuzione del contratto (art. 6 §1 lett. b GDPR)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-5 py-4 text-charcoal/70">Sicurezza e prevenzione frodi</td>
+                            <td class="px-5 py-4 text-charcoal/70">Legittimo interesse (art. 6 §1 lett. f GDPR)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-5 py-4 text-charcoal/70">Adempimenti fiscali e legali</td>
+                            <td class="px-5 py-4 text-charcoal/70">Obbligo legale (art. 6 §1 lett. c GDPR)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. Conservazione -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">4. Conservazione dei dati</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                I tuoi dati sono conservati per il tempo strettamente necessario alle finalità indicate:
+                i dati dell'account vengono eliminati su richiesta o dopo un periodo di inattività prolungata;
+                i dati degli ordini sono conservati per il periodo previsto dagli obblighi fiscali (10 anni).
+                I token di reset password scadono automaticamente entro 1 ora dal momento dell'emissione.
+            </p>
+        </div>
+
+        <!-- 5. Terze parti -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">5. Condivisione con terze parti</h2>
+            <p class="text-charcoal/70 leading-relaxed mb-4">
+                Non vendiamo né cediamo i tuoi dati a terze parti a scopo commerciale. I dati sono condivisi
+                esclusivamente con i fornitori tecnici necessari all'erogazione del servizio:
+            </p>
+            <ul class="space-y-2 text-charcoal/70 text-sm list-disc list-inside">
+                <li><strong class="text-charcoal">Stripe Inc.</strong> – elaborazione dei pagamenti (soggetto a propria Privacy Policy)</li>
+                <li><strong class="text-charcoal">Google LLC</strong> – font e CDN (dati tecnici anonimi)</li>
+            </ul>
+        </div>
+
+        <!-- 6. Diritti -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">6. I tuoi diritti</h2>
+            <p class="text-charcoal/70 leading-relaxed mb-4">
+                Ai sensi del Regolamento UE 2016/679 (GDPR) hai diritto di:
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-white rounded-xl border border-cream-dark p-4 text-sm text-charcoal/70">
+                    <p class="font-semibold text-charcoal mb-1">Accesso</p>
+                    <p>Ottenere conferma e copia dei tuoi dati trattati.</p>
+                </div>
+                <div class="bg-white rounded-xl border border-cream-dark p-4 text-sm text-charcoal/70">
+                    <p class="font-semibold text-charcoal mb-1">Rettifica</p>
+                    <p>Correggere dati inesatti o incompleti.</p>
+                </div>
+                <div class="bg-white rounded-xl border border-cream-dark p-4 text-sm text-charcoal/70">
+                    <p class="font-semibold text-charcoal mb-1">Cancellazione</p>
+                    <p>Richiedere la rimozione dei tuoi dati ("diritto all'oblio").</p>
+                </div>
+                <div class="bg-white rounded-xl border border-cream-dark p-4 text-sm text-charcoal/70">
+                    <p class="font-semibold text-charcoal mb-1">Portabilità</p>
+                    <p>Ricevere i tuoi dati in formato strutturato e leggibile da macchina.</p>
+                </div>
+                <div class="bg-white rounded-xl border border-cream-dark p-4 text-sm text-charcoal/70">
+                    <p class="font-semibold text-charcoal mb-1">Opposizione</p>
+                    <p>Opporti al trattamento basato su legittimo interesse.</p>
+                </div>
+                <div class="bg-white rounded-xl border border-cream-dark p-4 text-sm text-charcoal/70">
+                    <p class="font-semibold text-charcoal mb-1">Reclamo</p>
+                    <p>Presentare reclamo al Garante Privacy italiano (www.garanteprivacy.it).</p>
+                </div>
+            </div>
+            <p class="text-charcoal/70 text-sm mt-4">
+                Per esercitare i tuoi diritti scrivi a
+                <a href="mailto:info@artigianibottega.it" class="text-clay hover:underline">info@artigianibottega.it</a>.
+                Risponderemo entro 30 giorni.
+            </p>
+        </div>
+
+        <!-- 7. Cookie -->
+        <div class="mb-10">
+            <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">7. Cookie</h2>
+            <p class="text-charcoal/70 leading-relaxed">
+                Per informazioni dettagliate sui cookie utilizzati da questo sito consulta la nostra
+                <a th:href="@{/cookie-policy}" class="text-clay hover:underline">Informativa sui Cookie</a>.
+            </p>
+        </div>
+
+    </section>
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

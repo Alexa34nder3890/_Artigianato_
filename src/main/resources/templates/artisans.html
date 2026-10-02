@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1">
+
+    <!-- Hero intestazione -->
+    <section class="bg-charcoal py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-clay uppercase tracking-widest text-sm font-medium mb-3">I Nostri Maestri</p>
+            <h1 class="font-serif text-5xl font-bold text-cream mb-4">Gli Artigiani</h1>
+            <p class="text-cream/60 text-lg max-w-2xl mx-auto">
+                Dietro ogni oggetto c'è una persona, una storia, una tradizione tramandata nel tempo.
+                Scopri chi dà vita ai pezzi unici della nostra bottega.
+            </p>
+        </div>
+    </section>
+
+    <!-- Griglia artigiani -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <!-- Lista non vuota -->
+        <div th:if="${!artisans.isEmpty()}"
+             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div th:each="artisan : ${artisans}"
+                 class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-cream-dark group">
+
+                <!-- Foto -->
+                <div class="relative overflow-hidden h-64 bg-cream-dark">
+                    <img th:if="${artisan.photoUrl != null}"
+                         th:src="${artisan.photoUrl}"
+                         th:alt="${artisan.name}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <!-- Placeholder se nessuna foto -->
+                    <div th:unless="${artisan.photoUrl != null}"
+                         class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-clay/10 to-charcoal/10">
+                        <span class="text-6xl">🧑‍🎨</span>
+                    </div>
+                    <!-- Badge luogo -->
+                    <div th:if="${artisan.location != null and !artisan.location.isEmpty()}"
+                         class="absolute bottom-3 left-3 flex items-center gap-1 bg-charcoal/80 text-cream text-xs px-3 py-1 rounded-full backdrop-blur-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span th:text="${artisan.location}"></span>
+                    </div>
+                </div>
+
+                <!-- Info -->
+                <div class="p-6">
+                    <h2 class="font-serif text-xl font-bold text-charcoal mb-3"
+                        th:text="${artisan.name}"></h2>
+                    <p th:if="${artisan.biography != null and !artisan.biography.isEmpty()}"
+                       class="text-charcoal/60 text-sm leading-relaxed line-clamp-4"
+                       th:text="${artisan.biography}"></p>
+                    <p th:unless="${artisan.biography != null and !artisan.biography.isEmpty()}"
+                       class="text-charcoal/40 text-sm italic">Nessuna biografia disponibile.</p>
+
+                    <!-- Numero prodotti + bottone -->
+                    <div class="mt-4 pt-4 border-t border-cream-dark flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-clay" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10"/>
+                            </svg>
+                            <span class="text-xs text-charcoal/50">
+                                <span class="font-semibold text-clay"
+                                      th:text="${artisan.products != null ? artisan.products.size() : 0}">0</span>
+                                prodott<span th:text="${artisan.products != null and artisan.products.size() == 1 ? 'o' : 'i'}">i</span> in catalogo
+                            </span>
+                        </div>
+                        <!-- Bottone "Vedi prodotti": porta a /products/all filtrando per questo artigiano -->
+                        <a th:href="@{/products/all(artisan=${artisan.name})}"
+                           class="inline-flex items-center gap-1 bg-clay hover:bg-clay-dark text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 whitespace-nowrap"
+                           th:if="${artisan.products != null and !artisan.products.isEmpty()}">
+                            Vedi prodotti →
+                        </a>
+                        <span th:unless="${artisan.products != null and !artisan.products.isEmpty()}"
+                              class="text-xs text-charcoal/30 italic">Nessun prodotto</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista vuota -->
+        <div th:if="${artisans.isEmpty()}" class="text-center py-24">
+            <span class="text-7xl">🧑‍🎨</span>
+            <p class="text-charcoal/60 text-xl mt-6 font-serif">Nessun artigiano registrato per il momento.</p>
+            <p class="text-charcoal/40 text-sm mt-2">Torna a visitarci presto!</p>
+        </div>
+
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-charcoal py-14">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="font-serif text-3xl font-bold text-cream mb-4">Scopri i loro capolavori</h2>
+            <p class="text-cream/60 text-lg mb-8">Ogni prodotto racconta la storia di chi lo ha creato.</p>
+            <a th:href="@{/products}"
+               class="bg-clay hover:bg-clay-dark text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 inline-block">
+                Sfoglia i Prodotti →
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+</body>
+</html>

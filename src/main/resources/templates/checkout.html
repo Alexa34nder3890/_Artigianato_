@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body class="bg-cream font-sans text-charcoal min-h-screen flex flex-col">
+
+<nav th:replace="~{bases/navbar.html}"></nav>
+
+<main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <h1 class="font-serif text-4xl font-bold text-charcoal mb-2">Checkout</h1>
+    <p class="text-charcoal/60 mb-10">Riepilogo del tuo ordine</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+        <!-- Riepilogo ordine -->
+        <div class="lg:col-span-2 space-y-4">
+            <h2 class="font-semibold text-charcoal text-lg mb-3">Riepilogo Ordine</h2>
+
+            <div th:each="item : ${cartItems}"
+                 class="bg-white rounded-xl border border-cream-dark p-4 flex items-center gap-3">
+                <div class="w-12 h-12 rounded-lg overflow-hidden bg-cream-dark flex-shrink-0">
+                    <img th:if="${item.product.imageUrl != null}"
+                         th:src="${item.product.imageUrl}"
+                         th:alt="${item.product.name}"
+                         class="w-full h-full object-cover">
+                    <span th:unless="${item.product.imageUrl != null}" class="flex items-center justify-center h-full text-xl">🏺</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium text-sm text-charcoal truncate" th:text="${item.product.name}"></p>
+                    <p class="text-xs text-charcoal/50">Q.tà: <span th:text="${item.quantity}"></span></p>
+                </div>
+                <span class="font-semibold text-clay text-sm"
+                      th:text="'€' + ${#numbers.formatDecimal(item.product.price.multiply(new java.math.BigDecimal(item.quantity)), 1, 2)}"></span>
+            </div>
+
+            <div class="bg-charcoal text-cream rounded-xl p-4 flex justify-between items-center">
+                <span class="font-semibold">Totale</span>
+                <span class="font-bold text-xl text-clay" th:text="'€' + ${#numbers.formatDecimal(total, 1, 2)}"></span>
+            </div>
+        </div>
+
+        <!-- Pagamento (placeholder senza Stripe) -->
+        <div class="lg:col-span-3">
+            <div class="bg-white rounded-2xl border border-cream-dark p-8 flex flex-col items-center justify-center gap-4 text-center min-h-[260px]">
+                <span class="text-5xl">🚧</span>
+                <h2 class="font-semibold text-charcoal text-lg">Pagamento temporaneamente non disponibile</h2>
+                <p class="text-charcoal/50 text-sm max-w-xs">
+                    L'integrazione con il sistema di pagamento è in fase di configurazione.<br>
+                    Torna presto!
+                </p>
+                <a th:href="@{/cart}"
+                   class="mt-2 inline-block bg-clay hover:bg-clay-dark text-white py-2 px-6 rounded-xl font-semibold transition-all duration-300">
+                    Torna al carrello
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{bases/footer.html}"></footer>
+<script th:replace="~{bases/scripts.html}"></script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<nav class="bg-charcoal shadow-lg sticky top-0 z-50" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+
+            <!-- Logo -->
+            <a th:href="@{/}" class="flex items-center gap-2">
+                <span class="font-serif text-2xl font-bold text-clay">Artigiani</span>
+                <span class="text-cream text-xs tracking-widest uppercase">Bottega</span>
+            </a>
+
+            <!-- Link principali -->
+            <div class="hidden md:flex items-center gap-6">
+                <a th:href="@{/}" class="text-cream hover:text-clay transition-colors duration-200 font-medium">Home</a>
+                <a th:href="@{/products}" class="text-cream hover:text-clay transition-colors duration-200 font-medium">Prodotti</a>
+                <a th:href="@{/artisans}" class="text-cream hover:text-clay transition-colors duration-200 font-medium">Artigiani</a>
+                <a th:href="@{/contacts}" class="text-cream hover:text-clay transition-colors duration-200 font-medium">Contatti</a>
+            </div>
+
+            <!-- Azioni destra -->
+            <div class="flex items-center gap-4">
+
+                <!-- Carrello -->
+                <a th:href="@{/cart}" class="relative text-cream hover:text-clay transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6h11M10 21a1 1 0 11-2 0 1 1 0 012 0zm8 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+                    </svg>
+                </a>
+
+                <!-- Icona account / login -->
+                <div sec:authorize="isAuthenticated()" class="relative group">
+                    <button class="flex items-center gap-2 text-cream hover:text-clay transition-colors duration-200 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M5.121 17.804A9 9 0 1118.88 6.196M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span class="hidden md:inline text-sm" sec:authentication="name">Utente</span>
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="absolute right-0 mt-2 w-48 bg-charcoal-light border border-clay/30 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                        <a th:href="@{/account}" class="block px-4 py-2 text-cream hover:bg-clay/20 rounded-t-lg text-sm">Il mio account</a>
+                        <div sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/admin}" class="block px-4 py-2 text-clay hover:bg-clay/20 text-sm font-medium">Pannello Admin</a>
+                        </div>
+                        <form th:action="@{/perform_logout}" method="post">
+                            <button type="submit" class="w-full text-left px-4 py-2 text-red-400 hover:bg-red-900/20 rounded-b-lg text-sm">Logout</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div sec:authorize="isAnonymous()" class="flex items-center gap-3">
+                    <a th:href="@{/login}" class="text-cream hover:text-clay transition-colors text-sm font-medium">Accedi</a>
+                    <a th:href="@{/signup}" class="bg-clay hover:bg-clay-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200">Registrati</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
