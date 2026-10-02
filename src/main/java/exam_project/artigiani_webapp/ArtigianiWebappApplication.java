@@ -11,8 +11,6 @@ public class ArtigianiWebappApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(ArtigianiWebappApplication.class, args);
-          BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-          System.out.println(encoder.encode("$2a$10$WPQYb2unD5Bu6S.wEZJpnes7jnA/0HS0G8O21vHWkrktDuWzOx6YC"));
     }
 
     @Override

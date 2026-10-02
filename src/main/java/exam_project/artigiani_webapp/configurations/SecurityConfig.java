@@ -58,8 +58,6 @@ public class SecurityConfig {
 
         // Authorization
         http.authorizeHttpRequests(c -> c
-            // H2 Console: solo locale
-            .requestMatchers("/h2-console/**").permitAll()
             // Pannello Admin: solo ADMIN
             .requestMatchers("/admin/**").hasRole("ADMIN")
             // Checkout e account: utenti autenticati
@@ -68,9 +66,6 @@ public class SecurityConfig {
             // Tutto il resto è pubblico
             .anyRequest().permitAll()
         );
-
-        // Permette i frame della H2 Console (bloccati di default da Spring Security)
-        http.headers(h -> h.frameOptions(f -> f.sameOrigin()));
 
         // Logout
         http.logout(c -> c
